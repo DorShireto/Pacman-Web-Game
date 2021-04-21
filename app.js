@@ -6,10 +6,22 @@ var pac_color;
 var start_time;
 var time_elapsed;
 var interval;
+var users = {
+	"k": ["k", "admin", "admin@admin.com", "01/01/2000"]
+};
+let currentPage = "welcomePage";
 
-$(document).ready(function() {
+function changePage(newPage) {
+	$(`#${currentPage}`).hide()
+	$(`#${newPage}`).show()
+	currentPage = newPage;
+}
+
+
+
+$(document).ready(function () {
 	context = canvas.getContext("2d");
-	Start();
+	// Start();
 });
 
 function Start() {
@@ -57,14 +69,14 @@ function Start() {
 	keysDown = {};
 	addEventListener(
 		"keydown",
-		function(e) {
+		function (e) {
 			keysDown[e.keyCode] = true;
 		},
 		false
 	);
 	addEventListener(
 		"keyup",
-		function(e) {
+		function (e) {
 			keysDown[e.keyCode] = false;
 		},
 		false
@@ -170,3 +182,123 @@ function UpdatePosition() {
 		Draw();
 	}
 }
+
+
+
+
+
+
+
+
+// Register Starts  //
+
+// Date picker  //
+$(function () {
+	$("#datepicker").datepicker();
+});
+
+
+function register() {
+	let valid;
+	let username = document.getElementById("username").value;
+	let password = document.getElementById("password").value;
+	let fullname = document.getElementById("fullname").value;
+	let email = document.getElementById("email").value;
+	let birthday = document.getElementById("datepicker").value;
+	// Verification
+	valid = fieldValidation(username, password, fullname)
+	if (valid) {
+		users[username] = [password, fullname, email, birthday];
+		// Change scene
+		changePage("welcomePage");
+	}
+}
+
+
+
+function fieldValidation(username, password, fullname) {
+	const nameRegex = new RegExp('^[A-Za-z ]+$');
+	let valid = true;
+
+	// Username check 
+
+	if (users[username] != null) {
+		document.getElementById("username").style.borderColor = "red";
+		$("#username_error").text("Username already exist.")
+		valid = false;
+	}
+	else {
+		document.getElementById("username").style.borderColor = "";
+		$("#username_error").text("")
+	}
+
+	// Password check
+
+	if (password.length < 6) {
+		document.getElementById("password").style.borderColor = "red";
+		$("#password_error").text("Password must be at least 6 digits long.")
+		valid = false;
+	}
+	else if (!hasNumber(password) || !hasLetter(password)) {
+		document.getElementById("password").style.borderColor = "red";
+		$("#password_error").text("Password must contain at least 1 digit and 1 letter.")
+		valid = false;
+	}
+	else {
+		document.getElementById("password").style.borderColor = "";
+		$("#password_error").text("")
+	}
+
+	// Full name check
+
+	if (!nameRegex.test(fullname)) {
+		// alert(nameRegex.test(fullname))
+		document.getElementById("fullname").style.borderColor = "red";
+		$("#fullname_error").text("Full name should contain only letters.")
+		valid = false;
+	}
+
+	else {
+		document.getElementById("fullname").style.borderColor = "";
+		$("#fullname_error").text("")
+	}
+
+	return valid
+}
+
+
+function hasNumber(password) {
+	return /\d/.test(password);
+}
+function hasLetter(password) {
+	let letterRegex = RegExp('\w*[a-zA-Z]\w*');
+	return letterRegex.test(password);
+
+}
+// Register Ends  //
+
+
+// Login Starts  //
+
+function login() {
+	let valid;
+	let password;
+	let typedUsername = document.getElementById("usernameLogin").value;
+	let typedPassword = document.getElementById("passwordLogin").value;
+	alert("Password recived:" + typedPassword)
+
+
+	if (users[typedUsername] != null) {
+		alert(users[typedUsername][0]);
+		password = users[typedUsername][0];
+		if (typedPassword === password) {
+			// Valid login
+			changePage('gamePage');
+			// Start();
+			return;
+		}
+	}
+	$("#login_error").text("Username or Password incorrect");
+}
+
+// Login Ends  //
