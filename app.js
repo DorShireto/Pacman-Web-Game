@@ -19,10 +19,10 @@ function changePage(newPage) {
 
 
 
-// $(document).ready(function () {
-// 	context = canvas.getContext("2d");
-// 	Start();
-// });
+$(document).ready(function () {
+	context = canvas.getContext("2d");
+	Start();
+});
 
 function Start() {
 	board = new Array();
