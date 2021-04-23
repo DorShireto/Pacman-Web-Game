@@ -12,17 +12,17 @@ var users = {
 let currentPage = "welcomePage";
 
 function changePage(newPage) {
-	$(`#${currentPage}`).hide()
-	$(`#${newPage}`).show()
+	$(`#${currentPage}`).hide();
+	$(`#${newPage}`).show();
 	currentPage = newPage;
 }
 
 
 
-$(document).ready(function () {
-	context = canvas.getContext("2d");
-	// Start();
-});
+// $(document).ready(function () {
+// 	context = canvas.getContext("2d");
+// 	Start();
+// });
 
 function Start() {
 	board = new Array();
@@ -186,10 +186,6 @@ function UpdatePosition() {
 
 
 
-
-
-
-
 // Register Starts  //
 
 // Date picker  //
@@ -197,22 +193,31 @@ $(function () {
 	$("#datepicker").datepicker();
 });
 
+$(function () {
+	$("#register").click(function (e) {
+		changePage("registerPage");
+	});
+});
 
-function register() {
-	let valid;
-	let username = document.getElementById("username").value;
-	let password = document.getElementById("password").value;
-	let fullname = document.getElementById("fullname").value;
-	let email = document.getElementById("email").value;
-	let birthday = document.getElementById("datepicker").value;
-	// Verification
-	valid = fieldValidation(username, password, fullname)
-	if (valid) {
-		users[username] = [password, fullname, email, birthday];
-		// Change scene
-		changePage("welcomePage");
-	}
-}
+
+$(function () {
+	$("#registerForm").submit(function (e) {
+		let valid;
+		let username = document.getElementById("username").value;
+		let password = document.getElementById("password").value;
+		let fullname = document.getElementById("fullname").value;
+		let email = document.getElementById("email").value;
+		let birthday = document.getElementById("datepicker").value;
+		// Verification
+		valid = fieldValidation(username, password, fullname);
+		if (valid) {
+			users[username] = [password, fullname, email, birthday];
+			// Change scene
+			changePage("welcomePage");
+			e.preventDefault();
+		}
+	});
+});
 
 
 
@@ -280,25 +285,33 @@ function hasLetter(password) {
 
 // Login Starts  //
 
-function login() {
-	let valid;
-	let password;
-	let typedUsername = document.getElementById("usernameLogin").value;
-	let typedPassword = document.getElementById("passwordLogin").value;
-	alert("Password recived:" + typedPassword)
 
-
-	if (users[typedUsername] != null) {
-		alert(users[typedUsername][0]);
-		password = users[typedUsername][0];
-		if (typedPassword === password) {
-			// Valid login
-			changePage('gamePage');
-			// Start();
-			return;
+$(function () {
+	$("#loginForm").submit(function (e) {
+		let valid;
+		let password;
+		let typedUsername = document.getElementById("usernameLogin").value;
+		let typedPassword = document.getElementById("passwordLogin").value;
+		if (users[typedUsername] != null) {
+			password = users[typedUsername][0];
+			if (typedPassword === password) {
+				// Valid login
+				alert("logged in successfully")
+				changePage('gamePage');
+				e.preventDefault();
+				Start();
+			}
+			else {
+				$("#login_error").text("Username or Password incorrect");
+			}
 		}
-	}
-	$("#login_error").text("Username or Password incorrect");
-}
+		else {
+			$("#login_error").text("Username or Password incorrect");
+			e.preventDefault();
+		}
+
+	});
+});
+
 
 // Login Ends  //

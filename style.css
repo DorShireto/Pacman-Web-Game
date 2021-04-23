@@ -31,5 +31,8 @@ input[type=text], input[type=password], input[type=email] {
     align-items: center;
   }
 
+  #content{
+    background-color: lightblue;
+  }
 
 /* Registertion form ends */

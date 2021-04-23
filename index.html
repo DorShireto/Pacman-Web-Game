@@ -10,96 +10,99 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <header>header header header header header header header header header header </header>
+
 <body>
 	<div>menu</div>
 
 	<div id="content">
-	<div id="gamePage" hidden>
-		<div id="score">
-			<label for="lblScore">SCORE:</label>
-			<input id="lblScore" type="text" />
+		<div id="gamePage" hidden>
+			<div id="score">
+				<label for="lblScore">SCORE:</label>
+				<input id="lblScore" type="text" />
+			</div>
+			<div id="time">
+				<label for="lblTime">TIME:</label>
+				<input id="lblTime" type="text" />
+			</div>
+			<div id="game">
+				<canvas id="canvas" height="600" width="600"></canvas>
+			</div>
+			<button onclick="changePage('welcomePage')">Back</button>
 		</div>
-		<div id="time">
-			<label for="lblTime">TIME:</label>
-			<input id="lblTime" type="text" />
+
+		<div id="welcomePage">
+			<img src="" alt="">
+			<button id="register">
+				Register
+			</button>
+
+			<button id="login" onclick="changePage('loginPage')">
+				Login
+			</button>
 		</div>
-		<div id="game">
-			<canvas id="canvas" height="600" width="600"></canvas>
+
+		<!-- Register Window Starts -->
+
+		<div id="registerPage" hidden>
+
+			<form id="registerForm">
+				<div class="formDivs">
+					User Name:
+					<input id="username" type="text" placeholder="Username" required />
+					<p id="username_error" style="color: red;"></p>
+				</div>
+				<div class="formDivs">
+					Password:
+					<input id="password" type="password" placeholder="Password" required />
+					<p id="password_error" style="color: red;"></p>
+				</div>
+				<div class="formDivs">
+					Full Name:
+					<input id="fullname" type="text" placeholder="Full Name" required />
+					<p id="fullname_error" style="color: red;"></p>
+				</div>
+				<div class="formDivs">
+					Email Address:
+					<input id="email" type="email" placeholder="Email" required /><br>
+				</div>
+				<div class="formDivs">
+					Birthday Date:
+					<input type="text" id="datepicker" required> <br>
+				</div>
+				<input type="submit"></button>
+				<button type="button" onclick="changePage('welcomePage')">Back</button>
+			</form>
+
 		</div>
+
+		<!-- Register Window End -->
+
+
+
+		<!-- Login Page Starts -->
+		<div id="loginPage" hidden>
+
+			<form id="loginForm">
+				<div class="formDivs">
+					User Name:
+					<input id="usernameLogin" type="text" placeholder="Username" required />
+				</div>
+				<div class="formDivs">
+					Password:
+					<input id="passwordLogin" type="password" placeholder="Password" required />
+				</div>
+				<p id="login_error" style="color: red;"></p>
+				<!-- <button type="submit" onclick="login()">Login</button> -->
+				<input type="submit"></input>
+				<button type="button" onclick="changePage('welcomePage')">Back</button>
+
+			</form>
+
+		</div>
+
+		<!-- Login Page Ends -->
 	</div>
-
-	<div id="welcomePage" style="background-color: red;">
-		<img src="" alt="">
-		<button id="register" onclick="changePage('registerPage')">
-			Register
-		</button>
-
-		<button id="login" onclick="changePage('loginPage')">
-			Login
-		</button>
-	</div>
-
-	<!-- Register Window Starts -->
-
-	<div id="registerPage" hidden>
-
-		<form id="registerForm">
-			<div class="formDivs">
-				User Name:
-				<input id="username" type="text" placeholder="Username" required />
-				<p id="username_error" style="color: red;"></p>
-			</div>
-			<div class="formDivs">
-				Password:
-				<input id="password" type="password" placeholder="Password" required />
-				<p id="password_error" style="color: red;"></p>
-			</div>
-			<div class="formDivs">
-				Full Name:
-				<input id="fullname" type="text" placeholder="Full Name" required />
-				<p id="fullname_error" style="color: red;"></p>
-			</div>
-			<div class="formDivs">
-				Email Address:
-				<input id="email" type="email" placeholder="Email" required /><br>
-			</div>
-			<div class="formDivs">
-				Birthday Date:
-				<input type="text" id="datepicker" required> <br>
-			</div>
-			<button type="submit" onclick="register()">Register</button>
-			<button type="button" onclick="changePage('welcomePage')">Back</button>
-		</form>
-
-	</div>
-
-	<!-- Register Window End -->
-
-
-
-	<!-- Login Page Starts -->
-	<div id="loginPage" hidden>
-
-		<form id="loginForm">
-			<div class="formDivs">
-				User Name:
-				<input id="usernameLogin" type="text" placeholder="Username" required />
-			</div>
-			<div class="formDivs">
-				Password:
-				<input id="passwordLogin" type="password" placeholder="Password" required />
-			</div>
-			<p id="login_error" style="color: red;"></p>
-			<button type="submit" onclick="login()">Login</button>
-			<button type="button" onclick="changePage('welcomePage')">Back</button>
-
-		</form>
-
-	</div>
-
-	<!-- Login Page Ends -->
-</div>
 </body>
-<footer>footer footer  footer footer footer footer footer footer footer footer footer</footer>
+<footer>footer footer footer footer footer footer footer footer footer footer footer</footer>
 
 </html>
