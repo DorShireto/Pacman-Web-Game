@@ -1,3 +1,18 @@
+// config;
+let moveLeft = 37;
+let moveUp = 38;
+let moveDown = 40;
+let moveRight = 39;
+let food_ball_num = 50;
+let food_color = {
+	"type1": "black",
+	"type2": "red",
+	"type3": "green"
+};
+let gameTime = 60;
+let monsters_num = 1;
+//
+
 var context;
 var shape = new Object();
 var board;
@@ -28,20 +43,24 @@ function Start() {
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
-	var cnt = 100;
+	var cnt = 121;
 	var food_remain = 50;
 	var pacman_remain = 1;
 	start_time = new Date();
-	for (var i = 0; i < 10; i++) {
+	for (var i = 0; i < 11; i++) {
 		board[i] = new Array();
-		//put obstacles in (i=3,j=3) and (i=3,j=4) and (i=3,j=5), (i=6,j=1) and (i=6,j=2)
-		for (var j = 0; j < 10; j++) {
+		//put obstacles
+		for (var j = 0; j < 11; j++) {
 			if (
-				(i == 3 && j == 3) ||
-				(i == 3 && j == 4) ||
-				(i == 3 && j == 5) ||
-				(i == 6 && j == 1) ||
-				(i == 6 && j == 2)
+				(i == 0 && j == 1) || (i == 0 && j == 2) || (i == 0 && j == 4) ||
+				(i == 1 && j == 4) || (i == 1 && j == 6) || (i == 1 && j == 7) || (i == 1 && j == 8) ||
+				(i == 2 && j == 0) || (i == 2 && j == 2) || (i == 2 && j == 4) || (i == 2 && j == 6) || (i == 2 && j == 10) ||
+				(i == 3 && j == 6) ||
+				(i == 4 && j == 0) || (i == 4 && j == 2) || (i == 4 && j == 3) || (i == 4 && j == 5) || (i == 4 && j == 8) || (i == 4 && j == 9) ||
+				(i == 6 && j == 5) || (i == 6 && j == 6) ||
+				(i == 7 && j == 1) || (i == 7 && j == 2) || (i == 7 && j == 5) || (i == 7 && j == 8) ||
+				(i == 8 && j == 1) || (i == 8 && j == 7) || (i == 8 && j == 8) ||
+				(i == 9 && j == 3) || (i == 9 && j == 4) || (i == 9 && j == 9)
 			) {
 				board[i][j] = 4;
 			} else {
@@ -85,26 +104,26 @@ function Start() {
 }
 
 function findRandomEmptyCell(board) {
-	var i = Math.floor(Math.random() * 9 + 1);
-	var j = Math.floor(Math.random() * 9 + 1);
+	var i = Math.floor(Math.random() * 10 + 1);
+	var j = Math.floor(Math.random() * 10 + 1);
 	while (board[i][j] != 0) {
-		i = Math.floor(Math.random() * 9 + 1);
-		j = Math.floor(Math.random() * 9 + 1);
+		i = Math.floor(Math.random() * 10 + 1);
+		j = Math.floor(Math.random() * 10 + 1);
 	}
 	return [i, j];
 }
 
 function GetKeyPressed() {
-	if (keysDown[38]) {
+	if (keysDown[moveUp]) {
 		return 1;
 	}
-	if (keysDown[40]) {
+	if (keysDown[moveDown]) {
 		return 2;
 	}
-	if (keysDown[37]) {
+	if (keysDown[moveLeft]) {
 		return 3;
 	}
-	if (keysDown[39]) {
+	if (keysDown[moveRight]) {
 		return 4;
 	}
 }
@@ -113,8 +132,8 @@ function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
 	lblTime.value = time_elapsed;
-	for (var i = 0; i < 10; i++) {
-		for (var j = 0; j < 10; j++) {
+	for (var i = 0; i < 11; i++) {
+		for (var j = 0; j < 11; j++) {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
@@ -152,7 +171,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 2) {
-		if (shape.j < 9 && board[shape.i][shape.j + 1] != 4) {
+		if (shape.j < 10 && board[shape.i][shape.j + 1] != 4) {
 			shape.j++;
 		}
 	}
@@ -162,7 +181,7 @@ function UpdatePosition() {
 		}
 	}
 	if (x == 4) {
-		if (shape.i < 9 && board[shape.i + 1][shape.j] != 4) {
+		if (shape.i < 10 && board[shape.i + 1][shape.j] != 4) {
 			shape.i++;
 		}
 	}
@@ -281,8 +300,6 @@ function hasLetter(password) {
 
 
 // Login Starts  //
-
-
 $(function () {
 	$("#loginForm").submit(function (e) {
 		let valid;
@@ -300,6 +317,7 @@ $(function () {
 			}
 			else {
 				$("#login_error").text("Username or Password incorrect");
+				e.preventDefault();
 			}
 		}
 		else {
