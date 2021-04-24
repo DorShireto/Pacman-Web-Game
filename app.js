@@ -206,7 +206,7 @@ function UpdatePosition() {
 	}
 }
 
-// Register Starts  //
+// ********************* REGISTER   *********************//
 
 // Date picker  //
 $(function () {
@@ -300,10 +300,10 @@ function hasLetter(password) {
 	return letterRegex.test(password);
 
 }
-// Register Ends  //
+// ********************* Register Ends   *********************//
 
 
-// Login Starts  //
+// *********************  LOGIN  ******************//
 $(function () {
 	$("#loginForm").submit(function (e) {
 		let valid;
@@ -333,11 +333,12 @@ $(function () {
 });
 
 
-// Login Ends  //
+// ********************  LOGIN END ******************//
 
 
 
-// About //
+
+// ***************  About ******************//
 $(function () {//modal
 	// Get the modal
 	var modal = document.getElementById("aboutModal");
@@ -368,9 +369,10 @@ $(function () {//modal
 		}
 	})
 });
+// ***************  About END ******************//
 
 
-// SETINGS:
+// ************   SETINGS *********************************:
 $(function () {
 	$("#settings").click(function (e) {
 		e.preventDefault();
@@ -496,7 +498,7 @@ $(function () {
 		changePage("welcomePage");
 	});
 });
-
+// ********************* SETINGS END ************************************
 
 // pattern - please dont fill or delete
 // $(function () { 
