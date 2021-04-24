@@ -41,14 +41,51 @@
 				Login
 			</button>
 
+			<button id="login" onclick="changePage('settingPage')">
+				Settings
+			</button>
+
 			<!-- Trigger/Open The Modal -->
 			<button id="aboutBtn">About</button>
 
-
 		</div>
 
-		<!-- Register Window Starts -->
+		<!-- settingsPage Starts-->
+		<div id="settingPage" hidden style="width: 50%;">
+			<form id="settingsForm">
+				<div id="settingHeader">
+					<div style="width: 50%; margin: auto;">
+						<h2>SETTINGS</h2>
+					</div>
+					<div id="settingsArea">
+						<div id="game_config" style="border-right: aliceblue 1px solid">
+							<center>
+								<h5>Game Configuration</h5>
+							</center>
+							<div class="ballCount" style="align-items: center;" id="balls">
+								<div class="col">
+									Balls : <span id="copyTarget">50</span>
+								</div>
+								<div class="col">
+									<input id="range" type="range" value="50" min="50" max="90"
+										class="custom-range slider" onchange="copyData(this,'copyTarget')">
+								</div>
+							</div>
 
+
+						</div>
+						<div id="monster_movement_config" style="border-left: aliceblue 1px solid">
+
+						</div>
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+		<!-- settingsPage Ends -->
+
+		<!-- Register Window Starts -->
 		<div id="registerPage" hidden>
 
 			<form id="registerForm">
@@ -126,6 +163,7 @@
 		</div>
 		<!-- About Page Ends -->
 	</div>
+
 </body>
 <footer>footer footer footer footer footer footer footer footer footer footer footer</footer>
 
