@@ -229,7 +229,7 @@ $(function () {
 		let email = document.getElementById("email").value;
 		let birthday = document.getElementById("datepicker").value;
 		// Verification
-		valid = fieldValidation(username, password, fullname);
+		valid = registerFieldValidation(username, password, fullname);
 		if (valid) {
 			users[username] = [password, fullname, email, birthday];
 			// Change scene
@@ -241,7 +241,7 @@ $(function () {
 
 
 
-function fieldValidation(username, password, fullname) {
+function registerFieldValidation(username, password, fullname) {
 	const nameRegex = new RegExp('^[A-Za-z ]+$');
 	let valid = true;
 
@@ -338,7 +338,7 @@ $(function () {
 
 
 // About //
-$(function () {
+$(function () {//modal
 	// Get the modal
 	var modal = document.getElementById("aboutModal");
 	// Get the button that opens the modal
@@ -379,6 +379,7 @@ $(function () {
 		document.getElementById("moveRightKey").value = moveRight;
 		document.getElementById("moveDownKey").value = moveDown;
 		document.getElementById("moveLeftKey").value = moveLeft;
+		document.getElementById("foodNumInput").value = foodNum;
 		$("#foodNum").text(foodNum);
 		document.getElementById("food_type_1_color").value = food1_color;
 		document.getElementById("food_type_2_color").value = food2_color;
@@ -392,11 +393,11 @@ $(function () {
 });
 
 function updateFoodNum() {
-	food_remain = document.getElementById("foodNumInput").value;
-	$("#foodNum").text(food_remain);
+	foodNum = document.getElementById("foodNumInput").value;
+	$("#foodNum").text(foodNum);
 }
 
-$(function () { // pattern - please dont fill or delete
+$(function () {
 	$("#randomizeSettingsBtn").click(function (e) {
 		randomizeSettings();
 		e.preventDefault();
@@ -444,6 +445,7 @@ function randomizeSettings() {
 
 }
 
+
 $(function () {
 	$("#gameTime").change(function (e) {
 		e.preventDefault();
@@ -474,8 +476,30 @@ $(function () {
 	})
 });
 
+$(function () {
+	$("#settingsForm").submit(function (e) {
+		// no validation needed because fields checked onChange and all fields required
+		moveUp = document.getElementById("moveUpKey").value;
+		moveRight = document.getElementById("moveRightKey").value;
+		moveDown = document.getElementById("moveDownKey").value;
+		moveLeft = document.getElementById("moveLeftKey").value;
+		foodNum = document.getElementById("foodNumInput").value;
+		food1_color = document.getElementById("food_type_1_color").value;
+		food1_score = document.getElementById("food_type_1_score").value;
+		food2_color = document.getElementById("food_type_2_color").value;
+		food2_score = document.getElementById("food_type_2_score").value;
+		food3_color = document.getElementById("food_type_3_color").value;
+		food3_score = document.getElementById("food_type_3_score").value;
+		gameTime = document.getElementById("gameTime").value;
+		monsterNum = document.getElementById("monsterNum").value;
+		e.preventDefault();
+		changePage("welcomePage");
+	});
+});
 
-// $(function () { // pattern - please dont fill or delete
+
+// pattern - please dont fill or delete
+// $(function () { 
 // 	$("#testtest").change(function (e) {
 // 		e.preventDefault();
 
