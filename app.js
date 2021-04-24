@@ -12,7 +12,7 @@ let food2_score = 15;
 let food3_score = 25;
 let colors = ["red", "green", "blue", "purple", "pink", "black"];
 
-
+let livesLeft = 5;
 let gameTime = 60;
 let monsterNum = 4;
 // let monsters = [new Object(), [new Image(), 600, 0], [new Image(), 0, 600], [new Image(), 600, 600]];
@@ -120,7 +120,7 @@ function Start() {
 		false
 	);
 	interval1 = setInterval(UpdatePacmanPosition, 100);
-	interval2 = setInterval(UpdateMonstersPosition, 600);
+	interval2 = setInterval(UpdateMonstersPosition, 700);
 
 	loadSettingDisplayData(); //for displaying the settings when game page is on
 }
@@ -196,10 +196,7 @@ function Draw() {
 				context.fill();
 			}
 			DrawMonsters();
-			// else if (board[i][j] == 5) { //monster
-			// 	//random 0 or 1
-			// 	context.drawImage(monsters[rndMonster], 0, 0, 60, 60);
-			// }
+
 		}
 	}
 }
@@ -241,28 +238,39 @@ function UpdatePacmanPosition() {
 		window.clearInterval(interval2);
 		window.alert("Game completed");
 		changePage("welcomePage");
-	} else if (time_elapsed >= gameTime) {
+	}
+	else if (time_elapsed >= gameTime) {
 		window.clearInterval(interval1);
 		window.clearInterval(interval2);
 
 		window.alert("Game Over - Times Out");
 		changePage("welcomePage");
 	}
+	else if (collisionCheck()) {
+		window.clearInterval(interval2);
+		window.clearInterval(interval1);
+		livesLeft--;
+		if (livesLeft == 0) {
+			//game over
+			window.alert("Game over - no more lives left");
+			changePage("welcomePage");
+		}
+		else {
+			window.alert("Monster caught you!");
+			Start();
+
+		}
+	}
 	else {
 		Draw();
 	}
 }
 function UpdateMonstersPosition() {
-	//for each monster randomize 1 move
-	// for (let i = 0; i < monsterNum; i++) {
-	// 	
-	// }
-	//**************************************************** */
 	for (let i = 0; i < monsterNum; i++) {
 		const monster = monsters[i];
-		let shapeX_pxl = shape.i * 60;
-		let shapeY_pxl = shape.j * 60;
-		if (Math.abs(shapeX_pxl - monster.x) < 120 || Math.abs(shapeY_pxl - monster.y) < 120) { // x axis or y axis in distance less than 2 cubics
+		let shapeX_pxl = shape.i * 60; // x position in pixels
+		let shapeY_pxl = shape.j * 60; // y in pixels
+		if (Math.abs(shapeX_pxl - monster.x) < 119 || Math.abs(shapeY_pxl - monster.y) < 119) { // x axis or y axis in distance less than 2 cubics
 			//monster is close -> chase pacman
 			if (shapeX_pxl > monster.x && board[monster.x / 60 + 1][monster.y / 60] != 4) {
 				//right is not a wall -> update X location of monster
@@ -282,7 +290,7 @@ function UpdateMonstersPosition() {
 			}
 		}
 		else { //distance is far from pacman
-			//random move
+			// so do random move
 			let moves = ["up", "down", "left", "right"];
 			let move = moves[Math.floor(Math.random() * moves.length)];//pick random element from array
 			switch (move) {
@@ -310,14 +318,22 @@ function UpdateMonstersPosition() {
 						monsters[i].x = monster.x - 60;//60px
 					}
 					break;
-
 			}
-
 		}
-
 	}
 
 	DrawMonsters();
+}
+function collisionCheck() {
+	for (let i = 0; i < monsterNum; i++) {
+		const monster = monsters[i];
+		let shapeX_pxl = shape.i * 60;
+		let shapeY_pxl = shape.j * 60;
+		if (monster.x == shapeX_pxl && monster.y == shapeY_pxl) {
+			return true;
+		}
+	}
+	return false;
 }
 
 
