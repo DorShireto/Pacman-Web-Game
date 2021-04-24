@@ -3,14 +3,18 @@ let moveLeft = 37;
 let moveUp = 38;
 let moveDown = 40;
 let moveRight = 39;
-let food_ball_num = 50;
-let food_color = {
-	"type1": "black",
-	"type2": "red",
-	"type3": "green"
-};
+let foodNum = 50;
+let food1_color = "red";
+let food2_color = "green";
+let food3_color = "blue";
+let food1_score = 5;
+let food2_score = 15;
+let food3_score = 25;
+let colors = ["red", "green", "blue", "purple", "pink", "black"];
+
+
 let gameTime = 60;
-let monsters_num = 1;
+let monsterNum = 1;
 //
 
 var context;
@@ -360,7 +364,120 @@ $(function () {
 	// When the user clicks esc, close it
 	window.addEventListener('keydown', function (event) {
 		if (event.key === 'Escape') {
-			modal.style.display = 'none'
+			modal.style.display = 'none';
 		}
 	})
 });
+
+
+// SETINGS:
+$(function () {
+	$("#settings").click(function (e) {
+		e.preventDefault();
+		changePage("settingsPage");
+		document.getElementById("moveUpKey").value = moveUp;
+		document.getElementById("moveRightKey").value = moveRight;
+		document.getElementById("moveDownKey").value = moveDown;
+		document.getElementById("moveLeftKey").value = moveLeft;
+		$("#foodNum").text(foodNum);
+		document.getElementById("food_type_1_color").value = food1_color;
+		document.getElementById("food_type_2_color").value = food2_color;
+		document.getElementById("food_type_3_color").value = food3_color;
+		document.getElementById("food_type_1_score").value = food1_score;
+		document.getElementById("food_type_2_score").value = food2_score;
+		document.getElementById("food_type_3_score").value = food3_score;
+		document.getElementById("gameTime").value = gameTime;
+		document.getElementById("monsterNum").value = monsterNum;
+	})
+});
+
+function updateFoodNum() {
+	food_remain = document.getElementById("foodNumInput").value;
+	$("#foodNum").text(food_remain);
+}
+
+$(function () { // pattern - please dont fill or delete
+	$("#randomizeSettingsBtn").click(function (e) {
+		randomizeSettings();
+		e.preventDefault();
+
+	})
+});
+
+function randomizeSettings() {
+	const maxScore = 100;
+
+	//move keys:
+	document.getElementById("moveUpKey").value = "upArrowKey";
+	document.getElementById("moveRightKey").value = "rightArrowKey";
+	document.getElementById("moveDownKey").value = "downArrowKey";
+	document.getElementById("moveLeftKey").value = "leftArrowKey";
+	//food number:
+	const randomFoodNum = Math.floor(Math.random() * 41) + 50;
+	document.getElementById("foodNumInput").value = randomFoodNum;
+	$("#foodNum").text(randomFoodNum);
+	//color pick:
+	let possibleColors = JSON.parse(JSON.stringify(colors));//deep copy of colors array
+	let randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+	let index = possibleColors.indexOf(randomColor);
+	possibleColors.splice(index, 1);
+	document.getElementById("food_type_1_color").value = randomColor;
+	randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+	index = possibleColors.indexOf(randomColor);
+	possibleColors.splice(index, 1);
+	document.getElementById("food_type_2_color").value = randomColor;
+	randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+	index = possibleColors.indexOf(randomColor);
+	possibleColors.splice(index, 1);
+	document.getElementById("food_type_3_color").value = randomColor;
+	//score between 1 to maxScore
+	document.getElementById("food_type_1_score").value = Math.floor(Math.random() * maxScore) + 1;
+	document.getElementById("food_type_2_score").value = Math.floor(Math.random() * maxScore) + 1;
+	document.getElementById("food_type_3_score").value = Math.floor(Math.random() * maxScore) + 1;
+	//game time :
+	document.getElementById("gameTime").value = Math.floor(Math.random() * 500) + 60;
+	//monsters:
+	document.getElementById("monsterNum").value = Math.floor(Math.random() * 4) + 1;
+
+
+
+
+}
+
+$(function () {
+	$("#gameTime").change(function (e) {
+		e.preventDefault();
+		const time = document.getElementById("gameTime").value;
+		if (time < 60) {
+			$("#gameTime_error").text("Time should be longer than 60 seconds");
+			document.getElementById("gameTime").value = "";
+		}
+		else {
+			$("#gameTime_error").text("");
+
+		}
+	})
+});
+
+$(function () {
+	$("#monsterNum").change(function (e) {
+		e.preventDefault();
+		const monsterNum = document.getElementById("monsterNum").value;
+		if (!(monsterNum >= 1 && monsterNum <= 4)) {
+			$("#monsterNum_error").text("Monster number should be between 1 to 4");
+			document.getElementById("monsterNum").value = "";
+		}
+		else {
+			$("#monsterNum_error").text("");
+
+		}
+	})
+});
+
+
+// $(function () { // pattern - please dont fill or delete
+// 	$("#testtest").change(function (e) {
+// 		e.preventDefault();
+
+// 	})
+// });

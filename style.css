@@ -1,6 +1,6 @@
 /* Registertion form starts */
 input[type=text], input[type=password], input[type=email] {
-    width: 60%; 
+    width: fit-content; 
     padding: 12px; 
     border: 1px solid #ccc; 
     border-radius: 4px; 
@@ -102,3 +102,9 @@ input[type=text], input[type=password], input[type=email] {
 		}
 /* ABOUT MODAL ENDS */
 
+/*  SETTINGS PAGE  */
+.setting{
+	display: flex;
+	margin-left: 5px;
+	/* margin: 10px; */
+}

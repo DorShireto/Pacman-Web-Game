@@ -37,13 +37,9 @@
 				Register
 			</button>
 
-			<button id="login" onclick="changePage('loginPage')">
-				Login
-			</button>
+			<button id="login" onclick="changePage('loginPage')">Login</button>
 
-			<button id="login" onclick="changePage('settingPage')">
-				Settings
-			</button>
+			<button id="settings">Settings</button>
 
 			<!-- Trigger/Open The Modal -->
 			<button id="aboutBtn">About</button>
@@ -51,35 +47,80 @@
 		</div>
 
 		<!-- settingsPage Starts-->
-		<div id="settingPage" hidden style="width: 50%;">
+		<div id="settingsPage" hidden style="width: 50%;">
 			<form id="settingsForm">
 				<div id="settingHeader">
-					<div style="width: 50%; margin: auto;">
-						<h2>SETTINGS</h2>
-					</div>
+					<!-- <div style="width: 50%; margin: auto;"> -->
+					<h2>SETTINGS</h2>
+					<!-- </div> -->
 					<div id="settingsArea">
-						<div id="game_config" style="border-right: aliceblue 1px solid">
-							<center>
-								<h5>Game Configuration</h5>
-							</center>
-							<div class="ballCount" style="align-items: center;" id="balls">
-								<div class="col">
-									Balls : <span id="copyTarget">50</span>
-								</div>
-								<div class="col">
-									<input id="range" type="range" value="50" min="50" max="90"
-										class="custom-range slider" onchange="copyData(this,'copyTarget')">
-								</div>
+						<!-- <div id="game_config" style="border-right: aliceblue 1px solid"> -->
+						<div id="game_config">
+							<h5>Game Configuration</h5>
+							<div class="setting">
+								<p>Move up Key:</p>
+								<input id="moveUpKey" type="text" required></input>
+							</div>
+							<div class="setting">
+								<p>Move Right Key:</p>
+								<input id="moveRightKey" type="text" required></input>
+							</div>
+							<div class="setting">
+								<p>Move Down Key:</p>
+								<input id="moveDownKey" type="text" required></input>
+							</div>
+							<div class="setting">
+								<p>Move Left Key:</p>
+								<input id="moveLeftKey" type="text" required></input>
 							</div>
 
+							<div class="ballCount" id="balls">
 
+								Food Balls Number : <p id="foodNum"></p>
+								<input id="foodNumInput" type="range" min="50" max="90" class="custom-range slider"
+									onchange="updateFoodNum()">
+								<p id="foodNum_error" style="color: red;"></p>
+
+							</div>
+							<h5>food settings:</h5>
+							<div class="setting">
+								<br>
+								<p>Type 1:</p>
+								<input id="food_type_1_color" type="text" placeholder="Color" required></input>
+								<input id="food_type_1_score" type="text" placeholder="Score" required></input>
+							</div>
+							<div class="setting">
+								<p>Type 2:</p>
+								<input id="food_type_2_color" type="text" placeholder="Color" required></input>
+								<input id="food_type_2_score" type="text" placeholder="Score" required></input>
+							</div>
+							<div class="setting">
+								<p>Type 3:</p>
+								<input id="food_type_3_color" type="text" placeholder="Color" required></input>
+								<input id="food_type_3_score" type="text" placeholder="Score" required></input>
+							</div>
+							<div class="setting">
+								<p>Game Time:</p>
+								<input id="gameTime" type="text" placeholder="Game Time" required></input>
+								<p id="gameTime_error" style="color: red;"></p>
+
+							</div>
+							<div class="setting">
+								<p>Monster Number:</p>
+								<input id="monsterNum" type="text" placeholder="Monster Number" required></input>
+								<p id="monsterNum_error" style="color: red;"></p>
+
+							</div>
 						</div>
-						<div id="monster_movement_config" style="border-left: aliceblue 1px solid">
-
+						<!-- <div id="monster_movement_config" style="border-left: aliceblue 1px solid"> -->
+						<div id="monster_movement_config">
 						</div>
 					</div>
-
 				</div>
+				<input type="submit"></input>
+				<button id="randomizeSettingsBtn">Randomize</button>
+				<button onclick="changePage('welcomePage')">Back</button>
+
 
 			</form>
 		</div>
