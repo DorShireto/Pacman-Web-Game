@@ -108,3 +108,9 @@ input[type=text], input[type=password], input[type=email] {
 	margin-left: 5px;
 	/* margin: 10px; */
 }
+#settingsBar{
+	display: flex;
+}
+.settingsBarCol{
+	margin-left: 18px;
+}

@@ -14,7 +14,13 @@ let colors = ["red", "green", "blue", "purple", "pink", "black"];
 
 
 let gameTime = 60;
-let monsterNum = 1;
+let monsterNum = 4;
+// let monsters = [new Object(), [new Image(), 600, 0], [new Image(), 0, 600], [new Image(), 600, 600]];
+let monsters = [{ img: new Image(), x: 0, y: 0 },
+{ img: new Image(), x: 600, y: 0 },
+{ img: new Image(), x: 0, y: 600 },
+{ img: new Image(), x: 600, y: 600 }];
+
 //
 
 var context;
@@ -24,7 +30,8 @@ var score;
 var pac_color;
 var start_time;
 var time_elapsed;
-var interval;
+let interval1;
+let interval2;
 var users = {
 	"k": ["k", "admin", "admin@admin.com", "01/01/2000"]
 };
@@ -36,10 +43,14 @@ function changePage(newPage) {
 	currentPage = newPage;
 }
 
-
-
 $(document).ready(function () {
-	// board = new Array();
+	monsters[0].img.src = './monster1.png';
+	monsters[1].img.src = './monster2.png';
+	monsters[2].img.src = './monster2.png';
+	monsters[3].img.src = './monster1.png';
+
+
+
 });
 
 function Start() {
@@ -92,6 +103,7 @@ function Start() {
 		board[i][j] = 0;
 		foodNeedToDeleteNum--;
 	}
+
 	keysDown = {};
 	addEventListener(
 		"keydown",
@@ -107,10 +119,20 @@ function Start() {
 		},
 		false
 	);
-	interval = setInterval(UpdatePosition, 250);
+	interval1 = setInterval(UpdatePacmanPosition, 100);
+	interval2 = setInterval(UpdateMonstersPosition, 600);
+
+	loadSettingDisplayData(); //for displaying the settings when game page is on
 }
 
 function loadSettingDisplayData() {
+	$("#ballNumSettingDisplay").text("Balls Number:" + foodNum);
+	$("#food1ColorSettingDisplay").text(food1_color + " Ball Score: " + food1_score);
+	$("#food2ColorSettingDisplay").text(food2_color + " Ball Score: " + food2_score);
+	$("#food3ColorSettingDisplay").text(food3_color + " Ball Score: " + food3_score);
+	$("#gameTimeSettingDisplay").text("Game Time: " + gameTime);
+	$("#monsterNumSettingDisplay").text("Monster Number: " + monsterNum);
+
 
 }
 
@@ -138,7 +160,11 @@ function GetKeyPressed() {
 		return 4;
 	}
 }
-
+function DrawMonsters() {
+	for (let i = 0; i < monsterNum; i++) {
+		context.drawImage(monsters[i].img, monsters[i].x, monsters[i].y, 60, 60);
+	}
+}
 function Draw() {
 	canvas.width = canvas.width; //clean board
 	lblScore.value = score;
@@ -169,11 +195,16 @@ function Draw() {
 				context.fillStyle = "grey"; //color
 				context.fill();
 			}
+			DrawMonsters();
+			// else if (board[i][j] == 5) { //monster
+			// 	//random 0 or 1
+			// 	context.drawImage(monsters[rndMonster], 0, 0, 60, 60);
+			// }
 		}
 	}
 }
 
-function UpdatePosition() {
+function UpdatePacmanPosition() {
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
 	if (x == 1) {
@@ -206,12 +237,87 @@ function UpdatePosition() {
 		pac_color = "green";
 	}
 	if (score == foodNum) {
-		window.clearInterval(interval);
+		window.clearInterval(interval1);
+		window.clearInterval(interval2);
 		window.alert("Game completed");
 		changePage("welcomePage");
-	} else {
+	} else if (time_elapsed >= gameTime) {
+		window.clearInterval(interval1);
+		window.clearInterval(interval2);
+
+		window.alert("Game Over - Times Out");
+		changePage("welcomePage");
+	}
+	else {
 		Draw();
 	}
+}
+function UpdateMonstersPosition() {
+	//for each monster randomize 1 move
+	// for (let i = 0; i < monsterNum; i++) {
+	// 	
+	// }
+	//**************************************************** */
+	for (let i = 0; i < monsterNum; i++) {
+		const monster = monsters[i];
+		let shapeX_pxl = shape.i * 60;
+		let shapeY_pxl = shape.j * 60;
+		if (Math.abs(shapeX_pxl - monster.x) < 120 || Math.abs(shapeY_pxl - monster.y) < 120) { // x axis or y axis in distance less than 2 cubics
+			//monster is close -> chase pacman
+			if (shapeX_pxl > monster.x && board[monster.x / 60 + 1][monster.y / 60] != 4) {
+				//right is not a wall -> update X location of monster
+				monsters[i].x = monster.x + 60;//60px
+			}
+			else if (shapeY_pxl > monster.y && board[monster.x / 60][monster.y / 60 + 1] != 4) {
+				//down is not a wall -> update Y location of monster
+				monsters[i].y = monster.y + 60;//60px
+			}
+			else if (shapeX_pxl < monster.x && board[monster.x / 60 - 1][monster.y / 60] != 4) {
+				//left is not a wall -> update X location of monster
+				monsters[i].x = monster.x - 60;//60px
+			}
+			else if (shapeY_pxl < monster.y && board[monster.x / 60][monster.y / 60 - 1] != 4) {
+				//up is not a wall -> update Y location of monster
+				monsters[i].y = monster.y - 60;//60px
+			}
+		}
+		else { //distance is far from pacman
+			//random move
+			let moves = ["up", "down", "left", "right"];
+			let move = moves[Math.floor(Math.random() * moves.length)];//pick random element from array
+			switch (move) {
+				case "up":
+					if (monster.y / 60 - 1 >= 0 && board[monster.x / 60][monster.y / 60 - 1] != 4) {
+						//up is not a wall -> update Y location of monster
+						monsters[i].y = monster.y - 60;//60px
+					}
+					break;
+				case "right":
+					if (monster.x / 60 + 1 <= 10 && board[monster.x / 60 + 1][monster.y / 60] != 4) {
+						//right is not a wall -> update x location of monster
+						monsters[i].x = monster.x + 60;//60px
+					}
+					break;
+				case "down":
+					if (monster.y / 60 + 1 <= 10 && board[monster.x / 60][monster.y / 60 + 1] != 4) {
+						//down is not a wall -> update Y location of monster
+						monsters[i].y = monster.y + 60;//60px
+					}
+					break;
+				case "left":
+					if (monster.x / 60 - 1 >= 0 && board[monster.x / 60 - 1][monster.y / 60] != 4) {
+						//left is not a wall -> update x location of monster
+						monsters[i].x = monster.x - 60;//60px
+					}
+					break;
+
+			}
+
+		}
+
+	}
+
+	DrawMonsters();
 }
 
 
@@ -435,7 +541,7 @@ function randomizeSettings() {
 	$("#foodNum").text(randomFoodNum);
 	//color pick:
 	let possibleColors = JSON.parse(JSON.stringify(colors));//deep copy of colors array
-	let randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+	let randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];//pick random element from array
 	let index = possibleColors.indexOf(randomColor);
 	possibleColors.splice(index, 1);
 	document.getElementById("food_type_1_color").value = randomColor;
