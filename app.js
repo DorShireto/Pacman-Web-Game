@@ -39,17 +39,14 @@ function changePage(newPage) {
 
 
 $(document).ready(function () {
-	context = canvas.getContext("2d");
-	Start();
+	// board = new Array();
 });
 
 function Start() {
+	context = canvas.getContext("2d");
 	board = new Array();
 	score = 0;
 	pac_color = "yellow";
-	var cnt = 121;
-	var food_remain = 50;
-	var pacman_remain = 1;
 	start_time = new Date();
 	for (var i = 0; i < 11; i++) {
 		board[i] = new Array();
@@ -60,34 +57,40 @@ function Start() {
 				(i == 1 && j == 4) || (i == 1 && j == 6) || (i == 1 && j == 7) || (i == 1 && j == 8) ||
 				(i == 2 && j == 0) || (i == 2 && j == 2) || (i == 2 && j == 4) || (i == 2 && j == 6) || (i == 2 && j == 10) ||
 				(i == 3 && j == 6) ||
-				(i == 4 && j == 0) || (i == 4 && j == 2) || (i == 4 && j == 3) || (i == 4 && j == 5) || (i == 4 && j == 8) || (i == 4 && j == 9) ||
+				(i == 4 && j == 0) || (i == 4 && j == 2) || (i == 4 && j == 3) || (i == 4 && j == 8) || (i == 4 && j == 9) ||
 				(i == 6 && j == 5) || (i == 6 && j == 6) ||
 				(i == 7 && j == 1) || (i == 7 && j == 2) || (i == 7 && j == 5) || (i == 7 && j == 8) ||
 				(i == 8 && j == 1) || (i == 8 && j == 7) || (i == 8 && j == 8) ||
 				(i == 9 && j == 3) || (i == 9 && j == 4) || (i == 9 && j == 9)
 			) {
 				board[i][j] = 4;
-			} else {
-				var randomNum = Math.random();
-				if (randomNum <= (1.0 * food_remain) / cnt) {
-					food_remain--;
-					board[i][j] = 1;
-				} else if (randomNum < (1.0 * (pacman_remain + food_remain)) / cnt) {
-					shape.i = i;
-					shape.j = j;
-					pacman_remain--;
-					board[i][j] = 2;
-				} else {
-					board[i][j] = 0;
-				}
-				cnt--;
+			}
+			else {
+				board[i][j] = 1;
 			}
 		}
 	}
-	while (food_remain > 0) {
-		var emptyCell = findRandomEmptyCell(board);
-		board[emptyCell[0]][emptyCell[1]] = 1;
-		food_remain--;
+	//pacman placing randomly:
+	var i1 = Math.floor(Math.random() * 10 + 1);
+	var i2 = Math.floor(Math.random() * 10 + 1);
+	while (board[i1][i2] == 4) {
+		i1 = Math.floor(Math.random() * 10 + 1);
+		i2 = Math.floor(Math.random() * 10 + 1);
+	}
+	shape.i = i1;
+	shape.j = i2;
+	board[i1][i2] = 2;
+	//clear the num of food we need:
+	let foodNeedToDeleteNum = 90 - foodNum;
+	while (foodNeedToDeleteNum > 0) {
+		var i = Math.floor(Math.random() * 10 + 1);
+		var j = Math.floor(Math.random() * 10 + 1);
+		while (board[i][j] != 1) {
+			i = Math.floor(Math.random() * 10 + 1);
+			j = Math.floor(Math.random() * 10 + 1);
+		}
+		board[i][j] = 0;
+		foodNeedToDeleteNum--;
 	}
 	keysDown = {};
 	addEventListener(
@@ -105,6 +108,10 @@ function Start() {
 		false
 	);
 	interval = setInterval(UpdatePosition, 250);
+}
+
+function loadSettingDisplayData() {
+
 }
 
 function findRandomEmptyCell(board) {
@@ -141,7 +148,7 @@ function Draw() {
 			var center = new Object();
 			center.x = i * 60 + 30;
 			center.y = j * 60 + 30;
-			if (board[i][j] == 2) {
+			if (board[i][j] == 2) {//pacman 
 				context.beginPath();
 				context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
 				context.lineTo(center.x, center.y);
@@ -151,12 +158,12 @@ function Draw() {
 				context.arc(center.x + 5, center.y - 15, 5, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
-			} else if (board[i][j] == 1) {
+			} else if (board[i][j] == 1) { //food
 				context.beginPath();
 				context.arc(center.x, center.y, 15, 0, 2 * Math.PI); // circle
 				context.fillStyle = "black"; //color
 				context.fill();
-			} else if (board[i][j] == 4) {
+			} else if (board[i][j] == 4) { //wall
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
@@ -198,13 +205,16 @@ function UpdatePosition() {
 	if (score >= 20 && time_elapsed <= 10) {
 		pac_color = "green";
 	}
-	if (score == 50) {
+	if (score == foodNum) {
 		window.clearInterval(interval);
 		window.alert("Game completed");
+		changePage("welcomePage");
 	} else {
 		Draw();
 	}
 }
+
+
 
 // ********************* REGISTER   *********************//
 
@@ -305,6 +315,12 @@ function hasLetter(password) {
 
 // *********************  LOGIN  ******************//
 $(function () {
+	$("#login").click(function (e) {
+		changePage("loginPage");
+	});
+});
+
+$(function () {
 	$("#loginForm").submit(function (e) {
 		let valid;
 		let password;
@@ -314,20 +330,21 @@ $(function () {
 			password = users[typedUsername][0];
 			if (typedPassword === password) {
 				// Valid login
-				alert("logged in successfully")
+				alert("logged in successfully");
+				// e.preventDefault();
 				changePage('gamePage');
-				e.preventDefault();
 				Start();
 			}
 			else {
 				$("#login_error").text("Username or Password incorrect");
-				e.preventDefault();
+				// e.preventDefault();
 			}
 		}
 		else {
 			$("#login_error").text("Username or Password incorrect");
-			e.preventDefault();
+			// e.preventDefault();
 		}
+		e.preventDefault();
 
 	});
 });
@@ -386,9 +403,6 @@ $(function () {
 		document.getElementById("food_type_1_color").value = food1_color;
 		document.getElementById("food_type_2_color").value = food2_color;
 		document.getElementById("food_type_3_color").value = food3_color;
-		document.getElementById("food_type_1_score").value = food1_score;
-		document.getElementById("food_type_2_score").value = food2_score;
-		document.getElementById("food_type_3_score").value = food3_score;
 		document.getElementById("gameTime").value = gameTime;
 		document.getElementById("monsterNum").value = monsterNum;
 	})
@@ -408,7 +422,7 @@ $(function () {
 });
 
 function randomizeSettings() {
-	const maxScore = 100;
+
 
 	//move keys:
 	document.getElementById("moveUpKey").value = "upArrowKey";
@@ -433,10 +447,6 @@ function randomizeSettings() {
 	index = possibleColors.indexOf(randomColor);
 	possibleColors.splice(index, 1);
 	document.getElementById("food_type_3_color").value = randomColor;
-	//score between 1 to maxScore
-	document.getElementById("food_type_1_score").value = Math.floor(Math.random() * maxScore) + 1;
-	document.getElementById("food_type_2_score").value = Math.floor(Math.random() * maxScore) + 1;
-	document.getElementById("food_type_3_score").value = Math.floor(Math.random() * maxScore) + 1;
 	//game time :
 	document.getElementById("gameTime").value = Math.floor(Math.random() * 500) + 60;
 	//monsters:
@@ -487,11 +497,8 @@ $(function () {
 		moveLeft = document.getElementById("moveLeftKey").value;
 		foodNum = document.getElementById("foodNumInput").value;
 		food1_color = document.getElementById("food_type_1_color").value;
-		food1_score = document.getElementById("food_type_1_score").value;
 		food2_color = document.getElementById("food_type_2_color").value;
-		food2_score = document.getElementById("food_type_2_score").value;
 		food3_color = document.getElementById("food_type_3_color").value;
-		food3_score = document.getElementById("food_type_3_score").value;
 		gameTime = document.getElementById("gameTime").value;
 		monsterNum = document.getElementById("monsterNum").value;
 		e.preventDefault();
@@ -507,3 +514,12 @@ $(function () {
 
 // 	})
 // });
+
+
+
+$(function () {
+	$("#fastGame").click(function (e) {
+		changePage("gamePage");
+		Start();
+	});
+});

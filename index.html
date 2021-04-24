@@ -25,25 +25,31 @@
 				<label for="lblTime">TIME:</label>
 				<input id="lblTime" type="text" />
 			</div>
+			<div id="settingsBar">
+				<h3>SETTINGS:</h3>
+				<p id="ballNumSettingDisplay"></p>
+				<p id="food1ColorSettingDisplay"></p>
+				<p id="food2ColorSettingDisplay"></p>
+				<p id="food3ColorSettingDisplay"></p>
+				<p id="gameTimeSettingDisplay"></p>
+				<p id="monsterNumSettingDisplay"></p>
+				</p>
+			</div>
 			<div id="game">
 				<canvas id="canvas" height="660" width="660" style="border-style: solid;"></canvas>
 			</div>
-			<button onclick="changePage('welcomePage')">Back</button>
+			<!-- <button onclick="changePage('welcomePage')">Quit</button> -->
 		</div>
 
 		<div id="welcomePage">
 			<img src="" alt="">
-			<button id="register">
-				Register
-			</button>
-
-			<button id="login" onclick="changePage('loginPage')">Login</button>
-
+			<button id="register">Register</button>
+			<button id="login">Login</button>
 			<button id="settings">Settings</button>
-
 			<!-- Trigger/Open The Modal -->
 			<button id="aboutBtn">About</button>
-
+			<!--debug option-->
+			<button id="fastGame">DEBUG</button>
 		</div>
 
 		<!-- settingsPage Starts-->
@@ -85,19 +91,16 @@
 							<h5>food settings:</h5>
 							<div class="setting">
 								<br>
-								<p>Type 1:</p>
+								<p>5 Points Ball:</p>
 								<input id="food_type_1_color" type="text" placeholder="Color" required></input>
-								<input id="food_type_1_score" type="text" placeholder="Score" required></input>
 							</div>
 							<div class="setting">
-								<p>Type 2:</p>
+								<p>15 Points Ball:</p>
 								<input id="food_type_2_color" type="text" placeholder="Color" required></input>
-								<input id="food_type_2_score" type="text" placeholder="Score" required></input>
 							</div>
 							<div class="setting">
-								<p>Type 3:</p>
+								<p>25 Points Ball:</p>
 								<input id="food_type_3_color" type="text" placeholder="Color" required></input>
-								<input id="food_type_3_score" type="text" placeholder="Score" required></input>
 							</div>
 							<div class="setting">
 								<p>Game Time:</p>
