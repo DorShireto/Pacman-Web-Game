@@ -797,10 +797,10 @@ function randomizeSettings() {
 
 
 	//move keys:
-	document.getElementById("moveUpKey").value = "upArrowKey";
-	document.getElementById("moveRightKey").value = "rightArrowKey";
-	document.getElementById("moveDownKey").value = "downArrowKey";
-	document.getElementById("moveLeftKey").value = "leftArrowKey";
+	document.getElementById("moveUpKey").value = "38";
+	document.getElementById("moveRightKey").value = "39";
+	document.getElementById("moveDownKey").value = "40";
+	document.getElementById("moveLeftKey").value = "37";
 	//food number:
 	const randomFoodNum = Math.floor(Math.random() * 41) + 50;
 	document.getElementById("foodNumInput").value = randomFoodNum;
