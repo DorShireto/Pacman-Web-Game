@@ -60,9 +60,19 @@
 					<p id="monsterNumSettingDisplay"></p>
 				</div>
 				<div class="settingsBarCol">
-					<p id="food1ColorSettingDisplay"></p>
-					<p id="food2ColorSettingDisplay"></p>
-					<p id="food3ColorSettingDisplay"></p>
+
+					<div class="gamepageline">
+						<input id="inputColor1" type="color" disabled></input>
+						<p>Balls Score: 5</p>
+					</div>
+					<div class="gamepageline">
+						<input id="inputColor2" type="color" disabled></input>
+						<p>Balls Score: 15</p>
+					</div>
+					<div class="gamepageline">
+						<input id="inputColor3" type="color" disabled></input>
+						<p>Balls Score: 25</p>
+					</div>
 				</div>
 				<button id="soundBtn">MUTE</button>
 
@@ -126,7 +136,6 @@
 								<input class="form__input" id="email" type="text" name="email" required
 									pattern="[^]+@[^]+[.][a-z]{2,63}$" autocomplete="email" placeholder="Email">
 							</td>
-							<!-- <input id="email" required="" type="email" placeholder="Email" /> -->
 							<td>&nbsp;</td>
 						</tr>
 						<tr>
@@ -166,18 +175,7 @@
 
 					</tbody>
 				</table>
-				<!-- 
-				<div class="formDivs">
-					User Name:
-					<input id="usernameLogin" type="text" placeholder="Username" required />
-				</div>
-				<div class="formDivs">
-					Password:
-					<input id="passwordLogin" type="password" placeholder="Password" required />
-				</div> -->
 				<p id="login_error" style="color: red; text-align: center;"></p>
-				<!-- <button type="submit" onclick="login()">Login</button> -->
-
 				<div style="text-align: center;">
 					<input type="submit"></input>
 					<button type="button" onclick="changePage('welcomePage')">Back</button>
@@ -239,10 +237,7 @@
 
 									</tbody>
 								</table>
-
 								<p id="colorBalls_error" style="color: red;"></p>
-
-
 								<table>
 									<tbody>
 										<tr>
@@ -262,50 +257,26 @@
 							<h3>Movment Settings</h3>
 							<h5>Please click on the arrow to change keyborad control <br>Once the arrow is chosen press
 								the wished <br> key in your keyborad</h5>
-							<!-- <h5>Once the arrow is chosen press the wished key in your keyborad</h5> -->
-							<!-- <div class="setting" id="arrowsDiv">
-									<div class="up_down_arrows" style="display: flex;">
-										<div id="arrow_p_div" style="margin-right: 10px;">
-											<button id="moveUpKey"><i class="fas fa-arrow-up i"></i></button>
-											<span id="upKeyP">Up Arrow</span>
-										</div>
-										<div class="arrow_p_div">
-											<button id="moveDownKey"><i class="fas fa-arrow-down i"></i></button>
-											<span id="downKeyP">Down Arrow</span>
-										</div>
-									</div>
-									<div class="right_left_arrows" style="display: flex;">
-										<div id="arrow_p_div" style="margin-right: 10px;">
-											<button id="moveLeftKey"><i class="fas fa-arrow-left i"></i></button>
-											<span id="leftKeyP">Left Arrow</span>
-										</div>
-										<div id="arrow_p_div">
-											<button id="moveRightKey"><i class="fas fa-arrow-right i"></i></button>
-											<span id="rightKeyP">Right Arrow</span>
-										</div>
-									</div>
-								</div> -->
-
-
-
 							<div style="justify-content: center;">
 								<table id="table">
 									<tbody>
 										<tr>
 											<td><button id="moveUpKey"><i class="fas fa-arrow-up i"></i></button></td>
-											<td><span id="upKeyP" class="movemntKeys">Up Arrow</span></td>
+
+											<td><span id="upKeyP" class="movemntKeys"></span></td>
+
 											<td><button id="moveDownKey"><i class="fas fa-arrow-down i"></i></button>
 											</td>
-											<td><span id="downKeyP" class="movemntKeys">Down Arrow</span></td>
+											<td><span id="downKeyP" class="movemntKeys"></span></td>
 										</tr>
 										<tr>
 											<td><button id="moveLeftKey"><i class="fas fa-arrow-left i"></i></button>
 											</td>
-											<td><span id="leftKeyP" class="movemntKeys">Left Arrow</span></td>
+											<td><span id="leftKeyP" class="movemntKeys"></span></td>
 											<td><button id="moveRightKey"><i class="fas fa-arrow-right i"></i></button>
 											</td>
 											<td><span id="rightKeyP" aria-placeholder="Right Arrow" vale
-													class="movemntKeys">Right Arrow</span></td>
+													class="movemntKeys"></span></td>
 										</tr>
 									</tbody>
 								</table>

@@ -4,9 +4,9 @@ let moveUp = 38;
 let moveDown = 40;
 let moveRight = 39;
 let foodNum = 50;
-let food1_color = "red";
-let food2_color = "green";
-let food3_color = "blue";
+let food1_color;
+let food2_color;
+let food3_color;
 let food1_score = 5;
 let food2_score = 15;
 let food3_score = 25;
@@ -53,10 +53,10 @@ function changePage(newPage) {
 
 $(document).ready(function () {
 	//update setting fields
-	document.getElementById("moveUpKey").value = moveUp;
-	document.getElementById("moveRightKey").value = moveRight;
-	document.getElementById("moveDownKey").value = moveDown;
-	document.getElementById("moveLeftKey").value = moveLeft;
+	document.getElementById("upKeyP").innerText = moveUp;
+	document.getElementById("rightKeyP").innerText = moveRight;
+	document.getElementById("downKeyP").innerText = moveDown;
+	document.getElementById("leftKeyP").innerText = moveLeft;
 	document.getElementById("foodNumInput").value = foodNum;
 	$("#foodNum").text(foodNum);
 	// document.getElementById("food_type_1_color").value = food1_color;
@@ -215,9 +215,9 @@ function changeFoodColor() {
 
 function loadSettingDisplayData() {
 	$("#ballNumSettingDisplay").text("Balls Number:" + foodNum);
-	$("#food1ColorSettingDisplay").text(food1_color + " Ball Score: " + food1_score);
-	$("#food2ColorSettingDisplay").text(food2_color + " Ball Score: " + food2_score);
-	$("#food3ColorSettingDisplay").text(food3_color + " Ball Score: " + food3_score);
+	document.getElementById("inputColor1").value = food1_color;
+	document.getElementById("inputColor2").value = food2_color;
+	document.getElementById("inputColor3").value = food3_color;
 	$("#gameTimeSettingDisplay").text("Game Time: " + gameTime);
 	$("#monsterNumSettingDisplay").text("Monster Number: " + monsterNum);
 }
@@ -434,6 +434,7 @@ function UpdatePacmanPosition() {
 		else {
 			window.alert("Monster caught you!");
 			// Start();
+			window.clearInterval(updateMonstersPositionInterval);
 			resetMonstersPosition();
 			//clear dead pacman:
 			board[shape.i][shape.j] = 0;
@@ -460,6 +461,7 @@ function randomizePacmanLocation() {
 	board[i1][i2] = 2;
 }
 function resetMonstersPosition() {
+	updateMonstersPositionInterval = setInterval(UpdateMonstersPosition, 700);
 	monsters[0].x = 0;
 	monsters[0].y = 0;
 	monsters[1].x = 600;
@@ -573,6 +575,7 @@ function collisionCheck() {
 		let shapeX_pxl = shape.i * 60;
 		let shapeY_pxl = shape.j * 60;
 		if (monster.x == shapeX_pxl && monster.y == shapeY_pxl) {
+			keysDown = {}; //prevent sticky key after been caught
 			pac_color = "yellow"; //return pacman to regular color
 			if (monster.superMonster) {
 				score = score - 20;
@@ -806,27 +809,49 @@ function randomizeSettings() {
 	document.getElementById("moveRightKey").value = "39";
 	document.getElementById("moveDownKey").value = "40";
 	document.getElementById("moveLeftKey").value = "37";
+	moveLeft = 37;
+	moveUp = 38;
+	moveDown = 40;
+	moveRight = 39;
+	document.getElementById("upKeyP").innerText = moveUp;
+	document.getElementById("rightKeyP").innerText = moveRight;
+	document.getElementById("downKeyP").innerText = moveDown;
+	document.getElementById("leftKeyP").innerText = moveLeft;
 	//food number:
 	const randomFoodNum = Math.floor(Math.random() * 41) + 50;
 	document.getElementById("foodNumInput").value = randomFoodNum;
 	$("#foodNum").text(randomFoodNum);
 	//color pick:
-	let possibleColors = JSON.parse(JSON.stringify(colors));//deep copy of colors array
-	let randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];//pick random element from array
-	let index = possibleColors.indexOf(randomColor);// find the index of the color
-	possibleColors.splice(index, 1);//delete the color from the array
+
+	var randomColor1 = Math.floor(Math.random() * 16777215).toString(16);
+	var randomColor2 = Math.floor(Math.random() * 16777215).toString(16);
+	var randomColor3 = Math.floor(Math.random() * 16777215).toString(16);
+
+	while (randomColor1 == randomColor2 || randomColor1 == randomColor3 || randomColor2 == randomColor3) {
+		randomColor1 = Math.floor(Math.random() * 16777215).toString(16);
+		randomColor2 = Math.floor(Math.random() * 16777215).toString(16);
+		randomColor3 = Math.floor(Math.random() * 16777215).toString(16);
+	}
+
+	food1_color = "#" + randomColor1;
+	food2_color = "#" + randomColor2;
+	food3_color = "#" + randomColor3;
+
+	document.getElementById("food_type_1_color").value = "#" + randomColor1;
+	document.getElementById("food_type_2_color").value = "#" + randomColor2;
+	document.getElementById("food_type_3_color").value = "#" + randomColor3;
 
 	// Need work on color random pick
 
-	document.getElementById("food_type_1_color").value = randomColor;
-	randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-	index = possibleColors.indexOf(randomColor);
-	possibleColors.splice(index, 1);
-	document.getElementById("food_type_2_color").value = randomColor;
-	randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-	index = possibleColors.indexOf(randomColor);
-	possibleColors.splice(index, 1);
-	document.getElementById("food_type_3_color").value = randomColor;
+	// document.getElementById("food_type_1_color").value = randomColor;
+	// randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+	// index = possibleColors.indexOf(randomColor);
+	// possibleColors.splice(index, 1);
+	// document.getElementById("food_type_2_color").value = randomColor;
+	// randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+	// index = possibleColors.indexOf(randomColor);
+	// possibleColors.splice(index, 1);
+	// document.getElementById("food_type_3_color").value = randomColor;
 	//game time :
 	document.getElementById("gameTime").value = Math.floor(Math.random() * 500) + 60;
 	//monsters:
@@ -867,16 +892,17 @@ $(function () {
 $(function () {
 	$("#settingsForm").submit(function (e) {
 		// no validation needed because fields checked onChange and all fields required
-		moveUp = document.getElementById("moveUpKey").value;
-		moveRight = document.getElementById("moveRightKey").value;
-		moveDown = document.getElementById("moveDownKey").value;
-		moveLeft = document.getElementById("moveLeftKey").value;
+		moveUp = document.getElementById("upKeyP").innerText;
+		moveRight = document.getElementById("rightKeyP").innerText;
+		moveDown = document.getElementById("downKeyP").innerText;
+		moveLeft = document.getElementById("leftKeyP").innerText;
 		foodNum = document.getElementById("foodNumInput").value;
 		food1_color = document.getElementById("food_type_1_color").value;
 		food2_color = document.getElementById("food_type_2_color").value;
 		food3_color = document.getElementById("food_type_3_color").value;
 		gameTime = document.getElementById("gameTime").value;
-		monsterNum = document.getElementById("monsterNum").value;
+		alert("Monster num: " + document.getElementById("monsterNum").innerHTML)
+		monsterNum = document.getElementById("monsterNum").innerHTML;
 		// e.preventDefault();
 
 		let validColors = checkColors(food1_color, food2_color, food3_color);
@@ -910,7 +936,7 @@ function checkArrows(arrow1, arrow2, arrow3, arrow4) {
 	}
 	else {
 
-		$("#arrow_error").text("Please make all movment keys are different");
+		$("#arrow_error").text("Please make sure all movment keys are different");
 		return false;
 	}
 }
@@ -993,7 +1019,7 @@ $(function () {
 			document.removeEventListener('keydown', changeKey);
 			$("#rightKeyP").text(e.keyCode);
 		});
-		document.getElementById("movemoveRightKeyUpKey").blur();
+		document.getElementById("moveRightKey").blur();
 	})
 
 
