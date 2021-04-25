@@ -114,3 +114,9 @@ input[type=text], input[type=password], input[type=email] {
 .settingsBarCol{
 	margin-left: 18px;
 }
+
+.gamepageline{
+	display: flex;
+	align-items: center;
+	margin-top: 0px;
+}

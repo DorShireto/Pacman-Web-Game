@@ -17,13 +17,21 @@
 
 	<div id="content">
 		<div id="gamePage" hidden>
-			<div id="score">
-				<label for="lblScore">SCORE:</label>
-				<input id="lblScore" type="text" />
+			<div id="score" class="gamepageline">
+				<p>SCORE:</p>
+				<span id="lblScore"></span>
 			</div>
-			<div id="time">
-				<label for="lblTime">TIME:</label>
-				<input id="lblTime" type="text" />
+			<div id="time" class="gamepageline">
+				<p>TIME:</p>
+				<p id="lblTime"></p>
+			</div>
+			<div id="userNameDiv" class="gamepageline">
+				<p>Player Name:</p>
+				<span id="playerName"></span>
+			</div>
+			<div id="livesLeftDiv" class="gamepageline">
+				<p>Lives Left:</p>
+				<span id="livesLeft"></span>
 			</div>
 			<div id="settingsBar">
 				<h3>SETTINGS:</h3>
@@ -37,12 +45,13 @@
 					<p id="food2ColorSettingDisplay"></p>
 					<p id="food3ColorSettingDisplay"></p>
 				</div>
+				<button id="soundBtn">MUTE</button>
 
 
-				</p>
 			</div>
 			<div id="game">
 				<canvas id="canvas" height="660" width="660" style="border-style: solid;"></canvas>
+				<button onclick="changePage('settingsPage')">New Game</button>
 			</div>
 			<!-- <button onclick="changePage('welcomePage')">Quit</button> -->
 		</div>
