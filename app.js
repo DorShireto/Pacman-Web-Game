@@ -32,6 +32,8 @@ let currentPage = "welcomePage";
 
 function changePage(newPage) {
 	$(`#${currentPage}`).hide();
+	document.getElementById(newPage).hidden = false;
+	// document.getElementById(newPage).style.display = "flex";
 	$(`#${newPage}`).show();
 	currentPage = newPage;
 }
@@ -232,6 +234,7 @@ $(function () {
 
 $(function () {
 	$("#registerForm").submit(function (e) {
+		e.preventDefault();
 		let valid;
 		let username = document.getElementById("username").value;
 		let password = document.getElementById("password").value;
@@ -242,6 +245,7 @@ $(function () {
 		valid = registerFieldValidation(username, password, fullname);
 		if (valid) {
 			users[username] = [password, fullname, email, birthday];
+			document.getElementById("registerForm").reset();
 			// Change scene
 			changePage("welcomePage");
 			e.preventDefault();
@@ -259,29 +263,29 @@ function registerFieldValidation(username, password, fullname) {
 
 	if (users[username] != null) {
 		document.getElementById("username").style.borderColor = "red";
-		$("#username_error").text("Username already exist.")
+		$("#username_error").text("Username already exist.");
 		valid = false;
 	}
 	else {
 		document.getElementById("username").style.borderColor = "";
-		$("#username_error").text("")
+		$("#username_error").text("");
 	}
 
 	// Password check
 
 	if (password.length < 6) {
 		document.getElementById("password").style.borderColor = "red";
-		$("#password_error").text("Password must be at least 6 digits long.")
+		$("#password_error").text("Password must be at least 6 digits long.");
 		valid = false;
 	}
 	else if (!hasNumber(password) || !hasLetter(password)) {
 		document.getElementById("password").style.borderColor = "red";
-		$("#password_error").text("Password must contain at least 1 digit and 1 letter.")
+		$("#password_error").text("Password must contain at least 1 digit and 1 letter.");
 		valid = false;
 	}
 	else {
 		document.getElementById("password").style.borderColor = "";
-		$("#password_error").text("")
+		$("#password_error").text("");
 	}
 
 	// Full name check
@@ -289,13 +293,13 @@ function registerFieldValidation(username, password, fullname) {
 	if (!nameRegex.test(fullname)) {
 		// alert(nameRegex.test(fullname))
 		document.getElementById("fullname").style.borderColor = "red";
-		$("#fullname_error").text("Full name should contain only letters.")
+		$("#fullname_error").text("Full name should contain only letters.");
 		valid = false;
 	}
 
 	else {
 		document.getElementById("fullname").style.borderColor = "";
-		$("#fullname_error").text("")
+		$("#fullname_error").text("");
 	}
 
 	return valid
@@ -330,10 +334,11 @@ $(function () {
 			password = users[typedUsername][0];
 			if (typedPassword === password) {
 				// Valid login
-				alert("logged in successfully");
+				
+				alert("logged in successfully \nWelcome " + users[typedUsername][1]);
 				// e.preventDefault();
-				changePage('gamePage');
-				Start();
+				changePage('settingsPage');
+				// Start();
 			}
 			else {
 				$("#login_error").text("Username or Password incorrect");
@@ -400,11 +405,14 @@ $(function () {
 		document.getElementById("moveLeftKey").value = moveLeft;
 		document.getElementById("foodNumInput").value = foodNum;
 		$("#foodNum").text(foodNum);
-		document.getElementById("food_type_1_color").value = food1_color;
-		document.getElementById("food_type_2_color").value = food2_color;
-		document.getElementById("food_type_3_color").value = food3_color;
+		// document.getElementById("food_type_1_color").value = food1_color;
+		// document.getElementById("food_type_2_color").value = food2_color;
+		// document.getElementById("food_type_3_color").value = food3_color;
 		document.getElementById("gameTime").value = gameTime;
 		document.getElementById("monsterNum").value = monsterNum;
+
+
+
 	})
 });
 
@@ -425,10 +433,10 @@ function randomizeSettings() {
 
 
 	//move keys:
-	document.getElementById("moveUpKey").value = "upArrowKey";
-	document.getElementById("moveRightKey").value = "rightArrowKey";
-	document.getElementById("moveDownKey").value = "downArrowKey";
-	document.getElementById("moveLeftKey").value = "leftArrowKey";
+	document.getElementById("moveUpKey").value = 38;
+	document.getElementById("moveRightKey").value = 39;
+	document.getElementById("moveDownKey").value = 40;
+	document.getElementById("moveLeftKey").value = 37;
 	//food number:
 	const randomFoodNum = Math.floor(Math.random() * 41) + 50;
 	document.getElementById("foodNumInput").value = randomFoodNum;
@@ -450,11 +458,7 @@ function randomizeSettings() {
 	//game time :
 	document.getElementById("gameTime").value = Math.floor(Math.random() * 500) + 60;
 	//monsters:
-	document.getElementById("monsterNum").value = Math.floor(Math.random() * 4) + 1;
-
-
-
-
+	document.getElementById("monsterNum").textContent = Math.floor(Math.random() * 4) + 1;
 }
 
 
@@ -473,20 +477,20 @@ $(function () {
 	})
 });
 
-$(function () {
-	$("#monsterNum").change(function (e) {
-		e.preventDefault();
-		const monsterNum = document.getElementById("monsterNum").value;
-		if (!(monsterNum >= 1 && monsterNum <= 4)) {
-			$("#monsterNum_error").text("Monster number should be between 1 to 4");
-			document.getElementById("monsterNum").value = "";
-		}
-		else {
-			$("#monsterNum_error").text("");
+// $(function () {
+// 	$("#monsterNum").change(function (e) {
+// 		e.preventDefault();
+// 		const monsterNum = document.getElementById("monsterNum").value;
+// 		if (!(monsterNum >= 1 && monsterNum <= 4)) {
+// 			$("#monsterNum_error").text("Monster number should be between 1 to 4");
+// 			document.getElementById("monsterNum").value = "";
+// 		}
+// 		else {
+// 			$("#monsterNum_error").text("");
 
-		}
-	})
-});
+// 		}
+// 	})
+// });
 
 $(function () {
 	$("#settingsForm").submit(function (e) {
@@ -501,10 +505,47 @@ $(function () {
 		food3_color = document.getElementById("food_type_3_color").value;
 		gameTime = document.getElementById("gameTime").value;
 		monsterNum = document.getElementById("monsterNum").value;
+		// e.preventDefault();
+
+		let validColors = checkColors(food1_color,food2_color,food3_color);
+		alert("Valid colors: " + validColors);
+		alert("moveUp value: " + moveUp + "move down value: " + moveDown + "move right: " + moveRight + "move left: " + moveLeft)
+		let validArrows = checkArrows(moveUp,moveDown,moveLeft,moveRight);
+		alert("Valid arrows: " + validArrows);
+
+		if(validColors && validArrows)
+		{
+			alert("A222222222222222")
+			changePage("welcomePage");
+
+		}
 		e.preventDefault();
-		changePage("welcomePage");
+
 	});
 });
+
+function checkColors(color1,color2,color3){
+	if(color1 != color2 && color1 != color3 && color2!=color3){
+		return true;
+	}
+	else{
+		$("#colorBalls_error").text("Please make sure 3 balls are in different colors");
+		return false;
+	}
+}
+
+function checkArrows(arrow1,arrow2,arrow3,arrow4){
+	if(arrow1 != arrow2 && arrow1 != arrow3 && arrow1 != arrow4 && arrow2 != arrow3 && arrow2 != arrow4 && arrow3 != arrow4){
+		return true;
+	}
+	else{
+		
+		$("#arrow_error").text("Please make all movment keys are different");
+		return false;
+	}
+}
+
+
 // ********************* SETINGS END ************************************
 
 // pattern - please dont fill or delete
@@ -523,3 +564,111 @@ $(function () {
 		Start();
 	});
 });
+
+
+
+// Movement keys update
+
+
+$(function () {
+	$("#moveUpKey").click(function (e) {
+
+		e.preventDefault();
+		document.addEventListener('keydown', function changeKey(e) {
+			keyUpdateListener(e, "moveUpKey");
+			document.removeEventListener('keydown', changeKey);
+			$("#upKeyP").text(e.keyCode);
+		});
+		document.getElementById("moveUpKey").blur();
+	})
+
+
+});
+
+
+$(function () {
+	$("#moveLeftKey").click(function (e) {
+		e.preventDefault();
+		document.addEventListener('keydown', function changeKey(e) {
+			keyUpdateListener(e, "moveLeftKey");
+			document.removeEventListener('keydown', changeKey);
+			$("#leftKeyP").text(e.keyCode);
+		});
+		document.getElementById("moveLeftKey").blur();
+	})
+});
+
+
+$(function () {
+	$("#moveDownKey").click(function (e) {
+
+		e.preventDefault();
+		document.addEventListener('keydown', function changeKey(e) {
+			keyUpdateListener(e, "moveDownKey");
+			document.removeEventListener('keydown', changeKey);
+			$("#downKeyP").text(e.keyCode);
+		});
+		document.getElementById("moveDownKey").blur();
+	})
+
+
+});
+
+$(function () {
+	$("#moveRightKey").click(function (e) {
+
+		e.preventDefault();
+		document.addEventListener('keydown', function changeKey(e) {
+			keyUpdateListener(e, "moveRightKey");
+			document.removeEventListener('keydown', changeKey);
+			$("#rightKeyP").text(e.keyCode);
+		});
+		document.getElementById("movemoveRightKeyUpKey").blur();
+	})
+
+
+});
+
+
+let keyUpdateListener = function (event, id) {
+	test(event.keyCode, id);
+};
+
+function test(code, id) {
+	switch (id) {
+		case "moveUpKey":
+			moveUp = code;
+			break;
+		case "moveLeftKey":
+			moveLeft = code;
+			break;
+		case "buttonD":
+			moveDownKey = code;
+			break;
+		case "moveRightKey":
+			moveRight = code;
+			break;
+	}
+}
+
+
+
+$(function () {
+	$("#lessMonsterB").click(function (e) {
+		e.preventDefault();
+		if (monsterNum > 1)
+			monsterNum--;
+		document.getElementById("monsterNum").textContent = monsterNum;
+	})
+});
+
+$(function () {
+	$("#moreMonsterB").click(function (e) {
+		e.preventDefault();
+		if (monsterNum < 4)
+			monsterNum++;
+		document.getElementById("monsterNum").textContent = monsterNum;
+	})
+});
+
+

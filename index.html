@@ -3,19 +3,38 @@
 
 <head>
 	<script src="./jquery-3.4.1.slim.min.js"></script>
-	<script type="text/javascript" src="./configuration.json"></script>
+	<!-- <script type="text/javascript" src="./configuration.json"></script> -->
 	<script type="text/javascript" src="./app.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<!-- FONT AWESOME -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"
+		integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
+		crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/f6a2967fd7.js" crossorigin="anonymous"></script>
+	<!-- FONT AWESOME -->
 	<link rel="stylesheet" href="style.css">
 </head>
-<header>header header header header header header header header header header </header>
+<header>
+	<div class="headerContent">
+		header header header header header header header header header header
+	</div>
+</header>
 
 <body>
-	<div>menu</div>
+	<div id="content" class="mainPage">
+		<!-- <div id="Game">
+			<img src="resources/images/pacman_logo.png" alt="" id="pacmanLogo" class="center">
+			<img src="resources/images/pacmanBG.png" alt="" style="height: 25%;">
+		</div> -->
 
-	<div id="content">
+		<!-- <button id="settings">Settings</button> -->
+		<!-- <button id="fastGame">DEBUG</button> -->
+
+
+
+
 		<div id="gamePage" hidden>
 			<div id="score">
 				<label for="lblScore">SCORE:</label>
@@ -41,134 +60,99 @@
 			<!-- <button onclick="changePage('welcomePage')">Quit</button> -->
 		</div>
 
-		<div id="welcomePage">
+
+		<div id="welcomePage" class="firstPage">
+
+			<img src="resources/images/pacman_logo.png" alt="" id="pacmanLogo" class="center">
 			<img src="" alt="">
-			<button id="register">Register</button>
-			<button id="login">Login</button>
-			<button id="settings">Settings</button>
+			<div>
+				<button id="register">Register</button>
+				<button id="login">Login</button>
+			</div>
 			<!-- Trigger/Open The Modal -->
 			<button id="aboutBtn">About</button>
 			<!--debug option-->
-			<button id="fastGame">DEBUG</button>
+			<img src="resources/images/pacmanBG.png" alt="" style="height: 25%;">
 		</div>
-
-		<!-- settingsPage Starts-->
-		<div id="settingsPage" hidden style="width: 50%;">
-			<form id="settingsForm">
-				<div id="settingHeader">
-					<!-- <div style="width: 50%; margin: auto;"> -->
-					<h2>SETTINGS</h2>
-					<!-- </div> -->
-					<div id="settingsArea">
-						<!-- <div id="game_config" style="border-right: aliceblue 1px solid"> -->
-						<div id="game_config">
-							<h5>Game Configuration</h5>
-							<div class="setting">
-								<p>Move up Key:</p>
-								<input id="moveUpKey" type="text" required></input>
-							</div>
-							<div class="setting">
-								<p>Move Right Key:</p>
-								<input id="moveRightKey" type="text" required></input>
-							</div>
-							<div class="setting">
-								<p>Move Down Key:</p>
-								<input id="moveDownKey" type="text" required></input>
-							</div>
-							<div class="setting">
-								<p>Move Left Key:</p>
-								<input id="moveLeftKey" type="text" required></input>
-							</div>
-
-							<div class="ballCount" id="balls">
-
-								Food Balls Number : <p id="foodNum"></p>
-								<input id="foodNumInput" type="range" min="50" max="90" class="custom-range slider"
-									onchange="updateFoodNum()">
-								<p id="foodNum_error" style="color: red;"></p>
-
-							</div>
-							<h5>food settings:</h5>
-							<div class="setting">
-								<br>
-								<p>5 Points Ball:</p>
-								<input id="food_type_1_color" type="text" placeholder="Color" required></input>
-							</div>
-							<div class="setting">
-								<p>15 Points Ball:</p>
-								<input id="food_type_2_color" type="text" placeholder="Color" required></input>
-							</div>
-							<div class="setting">
-								<p>25 Points Ball:</p>
-								<input id="food_type_3_color" type="text" placeholder="Color" required></input>
-							</div>
-							<div class="setting">
-								<p>Game Time:</p>
-								<input id="gameTime" type="text" placeholder="Game Time" required></input>
-								<p id="gameTime_error" style="color: red;"></p>
-
-							</div>
-							<div class="setting">
-								<p>Monster Number:</p>
-								<input id="monsterNum" type="text" placeholder="Monster Number" required></input>
-								<p id="monsterNum_error" style="color: red;"></p>
-
-							</div>
-						</div>
-						<!-- <div id="monster_movement_config" style="border-left: aliceblue 1px solid"> -->
-						<div id="monster_movement_config">
-						</div>
-					</div>
-				</div>
-				<input type="submit"></input>
-				<button id="randomizeSettingsBtn">Randomize</button>
-
-
-			</form>
-		</div>
-		<!-- settingsPage Ends -->
 
 		<!-- Register Window Starts -->
-		<div id="registerPage" hidden>
-
+		<div id="registerPage" class="subPage" hidden>
+			<h1>Welcome Guest!</h1>
+			<h3>Please fill up the follow form to be able to play</h3>
 			<form id="registerForm">
-				<div class="formDivs">
-					User Name:
-					<input id="username" type="text" placeholder="Username" required />
-					<p id="username_error" style="color: red;"></p>
+				<table id="table">
+					<tbody>
+						<tr>
+							<td>User Name</td>
+							<td><input id="username" required="" type="text" placeholder="Username" /></td>
+							<td>
+								<p id="username_error" style="color: red;"></p>
+							</td>
+						</tr>
+						<tr>
+							<td>Password</td>
+							<td>
+								<input id="password" required="" type="password" placeholder="Password" />
+
+							</td>
+							<td>
+								<p id="password_error" style="color: red;"></p>
+							</td>
+						</tr>
+						<tr>
+							<td>Full Name</td>
+							<td><input id="fullname" required="" type="text" placeholder="Full Name" /></td>
+							<td>
+								<p id="fullname_error" style="color: red;"></p>
+							</td>
+						</tr>
+						<tr>
+							<td>Email</td>
+							<td>
+								<input class="form__input" id="email" type="text" name="email" required
+									pattern="[^]+@[^]+[.][a-z]{2,63}$" autocomplete="email" placeholder="Email">
+							</td>
+							<!-- <input id="email" required="" type="email" placeholder="Email" /> -->
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>Birthday Date:</td>
+							<td><input id="datepicker" required="" type="text" placeholder="Date of birth" /></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="registerButtons" style="text-align: center;">
+					<input type="submit"></button>
+					<button type="button" onclick="changePage('welcomePage')">Back</button>
 				</div>
-				<div class="formDivs">
-					Password:
-					<input id="password" type="password" placeholder="Password" required />
-					<p id="password_error" style="color: red;"></p>
-				</div>
-				<div class="formDivs">
-					Full Name:
-					<input id="fullname" type="text" placeholder="Full Name" required />
-					<p id="fullname_error" style="color: red;"></p>
-				</div>
-				<div class="formDivs">
-					Email Address:
-					<input id="email" type="email" placeholder="Email" required /><br>
-				</div>
-				<div class="formDivs">
-					Birthday Date:
-					<input type="text" id="datepicker" required> <br>
-				</div>
-				<input type="submit"></button>
-				<button type="button" onclick="changePage('welcomePage')">Back</button>
+
 			</form>
+
 
 		</div>
 
 		<!-- Register Window End -->
 
-
-
 		<!-- Login Page Starts -->
-		<div id="loginPage" hidden>
+		<div id="loginPage" class="subPage" hidden>
 
 			<form id="loginForm">
+				<table id="table">
+					<tbody>
+						<tr>
+							<td>User Name:</td>
+							<td><input id="usernameLogin" type="text" placeholder="Username" required /></td>
+						</tr>
+
+						<tr>
+							<td>Password:</td>
+							<td><input id="passwordLogin" type="password" placeholder="Password" required /></td>
+						</tr>
+
+					</tbody>
+				</table>
+				<!-- 
 				<div class="formDivs">
 					User Name:
 					<input id="usernameLogin" type="text" placeholder="Username" required />
@@ -176,17 +160,172 @@
 				<div class="formDivs">
 					Password:
 					<input id="passwordLogin" type="password" placeholder="Password" required />
-				</div>
-				<p id="login_error" style="color: red;"></p>
+				</div> -->
+				<p id="login_error" style="color: red; text-align: center;"></p>
 				<!-- <button type="submit" onclick="login()">Login</button> -->
-				<input type="submit"></input>
-				<button type="button" onclick="changePage('welcomePage')">Back</button>
+
+				<div style="text-align: center;">
+					<input type="submit"></input>
+					<button type="button" onclick="changePage('welcomePage')">Back</button>
+				</div>
+
 
 			</form>
 
 		</div>
-
 		<!-- Login Page Ends -->
+
+
+
+
+		<!-- settingsPage Starts-->
+		<div id="settingsPage" class="subPage" hidden style="width: 60%; margin-left: 20%;">
+			<form id="settingsForm">
+				<div id="settingHeader">
+					<!-- <div style="width: 50%; margin: auto;"> -->
+					<div style="text-align: center;">
+						<h2>SETTINGS</h2>
+					</div>
+
+					<!-- </div> -->
+					<div id="settingsArea" style="display: flex; justify-content: center;">
+						<!-- <div id="game_config" style="border-right: aliceblue 1px solid"> -->
+						<div id="m_m_config" style="border-right: aliceblue 1px solid; padding-right: 2em; ">
+							<div style="text-align: center;">
+								<h3>Game Configuration</h3>
+							</div>
+							<div class="ballCount" id="balls" style="display: flex; align-items: center; color: white;">
+								Food Balls Number : <p id="foodNum">70</p>
+								<input id="foodNumInput" type="range" min="50" max="90" class="custom-range slider"
+									onchange="updateFoodNum()">
+								<p id="foodNum_error" style="color: red;"></p>
+
+							</div>
+							<div id="foodSettings" style="text-align: center; justify-content: center;">
+								<h4>food settings:</h4>
+
+								<table id="table">
+									<tbody>
+
+										<tr>
+											<td>5 Points Ball:</td>
+											<td><input id="food_type_1_color" type="color" placeholder="Color"
+													value="#800000" required></input></td>
+										</tr>
+										<tr>
+											<td>15 Points Ball:</td>
+											<td><input id="food_type_2_color" type="color" placeholder="Color"
+													value="#0000FF" required></input></td>
+										</tr>
+										<tr>
+											<td>25 Points Ball:</td>
+											<td><input id="food_type_3_color" type="color" placeholder="Color"
+													value="#228B22" required></input></td>
+										</tr>
+
+									</tbody>
+								</table>
+
+								<p id="colorBalls_error" style="color: red;"></p>
+
+
+								<table>
+									<tbody>
+										<tr>
+											<td>Game Time:</td>
+											<td><input id="gameTime" value="60" min="60" type="text"
+													placeholder="Game Time" aria-describedby="gameTime_error"
+													required></input></td>
+										</tr>
+									</tbody>
+								</table>
+								<p id="gameTime_error" style="color: red;"></p>
+							</div>
+						</div>
+
+						<div id="game_config"
+							style="border-left: aliceblue 1px solid; padding-left: 2em; justify-content: center;">
+							<h3>Movment Settings</h3>
+							<h5>Please click on the arrow to change keyborad control <br>Once the arrow is chosen press
+								the wished <br> key in your keyborad</h5>
+							<!-- <h5>Once the arrow is chosen press the wished key in your keyborad</h5> -->
+							<!-- <div class="setting" id="arrowsDiv">
+									<div class="up_down_arrows" style="display: flex;">
+										<div id="arrow_p_div" style="margin-right: 10px;">
+											<button id="moveUpKey"><i class="fas fa-arrow-up i"></i></button>
+											<span id="upKeyP">Up Arrow</span>
+										</div>
+										<div class="arrow_p_div">
+											<button id="moveDownKey"><i class="fas fa-arrow-down i"></i></button>
+											<span id="downKeyP">Down Arrow</span>
+										</div>
+									</div>
+									<div class="right_left_arrows" style="display: flex;">
+										<div id="arrow_p_div" style="margin-right: 10px;">
+											<button id="moveLeftKey"><i class="fas fa-arrow-left i"></i></button>
+											<span id="leftKeyP">Left Arrow</span>
+										</div>
+										<div id="arrow_p_div">
+											<button id="moveRightKey"><i class="fas fa-arrow-right i"></i></button>
+											<span id="rightKeyP">Right Arrow</span>
+										</div>
+									</div>
+								</div> -->
+
+
+
+							<div style="justify-content: center;">
+								<table id="table">
+									<tbody>
+										<tr>
+											<td><button id="moveUpKey"><i class="fas fa-arrow-up i"></i></button></td>
+											<td><span id="upKeyP" class="movemntKeys">Up Arrow</span></td>
+											<td><button id="moveDownKey"><i class="fas fa-arrow-down i"></i></button>
+											</td>
+											<td><span id="downKeyP" class="movemntKeys">Down Arrow</span></td>
+										</tr>
+										<tr>
+											<td><button id="moveLeftKey"><i class="fas fa-arrow-left i"></i></button>
+											</td>
+											<td><span id="leftKeyP" class="movemntKeys">Left Arrow</span></td>
+											<td><button id="moveRightKey"><i class="fas fa-arrow-right i"></i></button>
+											</td>
+											<td><span id="rightKeyP" aria-placeholder="Right Arrow" vale
+													class="movemntKeys">Right Arrow</span></td>
+										</tr>
+									</tbody>
+								</table>
+								<p id="arrow_error" style="color: red;"></p>
+							</div>
+							<h3>Number of monsters</h3>
+							<div id="monsterNumDiv" style="display: flex; justify-content: center;">
+								<div class="box">
+									<button id="lessMonsterB"><i class="fas fa-minus"></i></button>
+								</div>
+								<div class="box">
+									<span id="monsterNum" style="color: white;">1</span>
+								</div>
+
+								<div class="box">
+									<button id="moreMonsterB"><i class="fas fa-plus"></i></button>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<br><br><br>
+				<div style="justify-content: center; text-align: center;">
+					<input type="submit"></input>
+					<button id="randomizeSettingsBtn">Randomize</button>
+				</div>
+			</form>
+
+
+
+		</div>
+		<!-- settingsPage Ends -->
 
 		<!-- About Page Begins -->
 		<div id="about">
@@ -205,9 +344,17 @@
 			</div>
 		</div>
 		<!-- About Page Ends -->
+
+	</div>
 	</div>
 
 </body>
-<footer>footer footer footer footer footer footer footer footer footer footer footer</footer>
+
+
+<footer>
+	<div class="footerContent">footer footer footer footer footer footer footer footer footer footer footer</div>
+</footer>
+
+
 
 </html>
