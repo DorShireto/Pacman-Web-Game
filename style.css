@@ -281,3 +281,15 @@ border: 5px solid black;
 	white-space: nowrap;
 	margin-right: 1rem;
 }
+#settingsBar{
+	display: flex;
+}
+.settingsBarCol{
+	margin-left: 18px;
+}
+
+.gamepageline{
+	display: flex;
+	align-items: center;
+	margin-top: 0px;
+}
