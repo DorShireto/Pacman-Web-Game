@@ -24,13 +24,8 @@ audio.loop = true;
 let soundMuted = false;
 let playerName;
 let movingDirection = "right";
-// let monsters = [new Object(), [new Image(), 600, 0], [new Image(), 0, 600], [new Image(), 600, 600]];
-let monsters = [{ img: new Image(), x: 0, y: 0, superMonster: false },
-{ img: new Image(), x: 600, y: 0, superMonster: true },
-{ img: new Image(), x: 0, y: 600, superMonster: true },
-{ img: new Image(), x: 600, y: 600, superMonster: false }];
-//
-let bonusObj = { img: new Image(), x: 300, y: 300, cought: false }
+let monsters;
+let bonusObj;
 var context;
 var shape = new Object();
 var board;
@@ -55,14 +50,19 @@ function changePage(newPage) {
 }
 
 $(document).ready(function () {
-	monsters[0].img.src = './monster1.png';
-	monsters[1].img.src = './monster2.png';
-	monsters[2].img.src = './monster2.png';
-	monsters[3].img.src = './monster1.png';
-	bonusObj.img.src = './50pts.png';
-
-
-
+	//update setting fields
+	document.getElementById("moveUpKey").value = moveUp;
+	document.getElementById("moveRightKey").value = moveRight;
+	document.getElementById("moveDownKey").value = moveDown;
+	document.getElementById("moveLeftKey").value = moveLeft;
+	document.getElementById("foodNumInput").value = foodNum;
+	$("#foodNum").text(foodNum);
+	document.getElementById("food_type_1_color").value = food1_color;
+	document.getElementById("food_type_2_color").value = food2_color;
+	document.getElementById("food_type_3_color").value = food3_color;
+	document.getElementById("gameTime").value = gameTime;
+	document.getElementById("monsterNum").value = monsterNum;
+	//*****************************************************/
 });
 
 $(function () {
@@ -89,7 +89,21 @@ function muteSound() {
 
 
 function Start() {
-	// playSound();
+	playSound();
+	//load monsters
+	monsters = [{ img: new Image(), x: 0, y: 0, superMonster: false },
+	{ img: new Image(), x: 600, y: 0, superMonster: true },
+	{ img: new Image(), x: 0, y: 600, superMonster: true },
+	{ img: new Image(), x: 600, y: 600, superMonster: false }];
+	monsters[0].img.src = './monster1.png';
+	monsters[1].img.src = './monster2.png';
+	monsters[2].img.src = './monster2.png';
+	monsters[3].img.src = './monster1.png';
+	// load bonus object
+	bonusObj = { img: new Image(), x: 300, y: 300, cought: false };
+	bonusObj.img.src = './50pts.png';
+	//****************** */
+	movingDirection = "right";
 	context = canvas.getContext("2d");
 	board = new Array();
 	score = 0;
@@ -192,9 +206,7 @@ function changeFoodColor() {
 							foodtypes.splice(index, 1);
 						} break;
 				}
-
 			}
-
 		}
 	}
 }
@@ -206,8 +218,6 @@ function loadSettingDisplayData() {
 	$("#food3ColorSettingDisplay").text(food3_color + " Ball Score: " + food3_score);
 	$("#gameTimeSettingDisplay").text("Game Time: " + gameTime);
 	$("#monsterNumSettingDisplay").text("Monster Number: " + monsterNum);
-
-
 }
 
 function findRandomEmptyCell(board) {
@@ -310,6 +320,8 @@ function Draw() {
 				context.arc(center.x - 12, center.y - 17, 5, 0, 2 * Math.PI); // circle
 				context.fillStyle = eyeColor; //color
 				context.fill();
+
+
 				//food:
 			} else if (board[i][j] == 11) {
 				context.beginPath();
@@ -329,7 +341,8 @@ function Draw() {
 			}
 
 
-			else if (board[i][j] == 4) { //wall
+			//wall:
+			else if (board[i][j] == 4) {
 				context.beginPath();
 				context.rect(center.x - 30, center.y - 30, 60, 60);
 				context.fillStyle = "grey"; //color
@@ -391,7 +404,8 @@ function UpdatePacmanPosition() {
 	if (foodCollected == foodNum) {
 		window.clearInterval(updatePacmanPositioInterval);
 		window.clearInterval(updateMonstersPositionInterval);
-		window.alert("Game completed");
+		window.clearInterval(updateBonusPositionInterval);
+		alert("Winner!!!");
 		changePage("welcomePage");
 	}
 	else if (time_elapsed >= gameTime) {
@@ -423,8 +437,6 @@ function UpdatePacmanPosition() {
 			board[shape.i][shape.j] = 0;
 			context.clearRect(shape.i, shape.j, 60, 60);
 			randomizePacmanLocation();
-			// Draw();
-
 		}
 	} else if (collisionWithBonusCheck()) {
 		window.clearInterval(updateBonusPositionInterval);
@@ -541,7 +553,6 @@ function UpdateMonstersPosition() {
 			}
 		}
 	}
-
 	DrawMonsters();
 }
 function collisionWithBonusCheck() {
@@ -567,7 +578,6 @@ function collisionCheck() {
 					score = 0;
 				}
 				livesLeft = livesLeft - 2;
-
 			}
 			else {
 				score = score - 10;
@@ -581,7 +591,14 @@ function collisionCheck() {
 	}
 	return false;
 }
-
+$(function () {
+	$("#newGameBtn").click(function (e) {
+		window.clearInterval(updateBonusPositionInterval);
+		window.clearInterval(updateMonstersPositionInterval);
+		window.clearInterval(updatePacmanPositioInterval);
+		changePage("settingsPage");
+	});
+});
 
 
 // ********************* REGISTER   *********************//
@@ -759,17 +776,7 @@ $(function () {
 	$("#settings").click(function (e) {
 		e.preventDefault();
 		changePage("settingsPage");
-		document.getElementById("moveUpKey").value = moveUp;
-		document.getElementById("moveRightKey").value = moveRight;
-		document.getElementById("moveDownKey").value = moveDown;
-		document.getElementById("moveLeftKey").value = moveLeft;
-		document.getElementById("foodNumInput").value = foodNum;
-		$("#foodNum").text(foodNum);
-		document.getElementById("food_type_1_color").value = food1_color;
-		document.getElementById("food_type_2_color").value = food2_color;
-		document.getElementById("food_type_3_color").value = food3_color;
-		document.getElementById("gameTime").value = gameTime;
-		document.getElementById("monsterNum").value = monsterNum;
+
 	})
 });
 
