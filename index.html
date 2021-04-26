@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
 	<script src="./jquery-3.4.1.slim.min.js"></script>
 	<!-- <script type="text/javascript" src="./configuration.json"></script> -->
 	<script type="text/javascript" src="./app.js"></script>
@@ -15,6 +16,30 @@
 	<script src="https://kit.fontawesome.com/f6a2967fd7.js" crossorigin="anonymous"></script>
 	<!-- FONT AWESOME -->
 	<link rel="stylesheet" href="style.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<style>
+		/* width */
+		::-webkit-scrollbar {
+			width: 10px;
+		}
+
+		/* Track */
+		::-webkit-scrollbar-track {
+			background: #f1f1f1;
+		}
+
+		/* Handle */
+		::-webkit-scrollbar-thumb {
+			background: #888;
+		}
+
+		/* Handle on hover */
+		::-webkit-scrollbar-thumb:hover {
+			background: #555;
+		}
+	</style>
 </head>
 <header>
 	<div class="headerContent">
@@ -23,18 +48,9 @@
 </header>
 
 <body>
+
 	<div id="content" class="mainPage">
-		<!-- <div id="Game">
-			<img src="resources/images/pacman_logo.png" alt="" id="pacmanLogo" class="center">
-			<img src="resources/images/pacmanBG.png" alt="" style="height: 25%;">
-		</div> -->
-
-		<!-- <button id="settings">Settings</button> -->
-		<!-- <button id="fastGame">DEBUG</button> -->
-
-
-
-
+		<!-- 
 		<div id="gamePage" hidden>
 			<div id="score" class="gamepageline">
 				<p>SCORE:</p>
@@ -83,6 +99,79 @@
 				<button id="newGameBtn">New Game</button>
 			</div>
 		</div>
+ -->
+
+		<div id="gamePage" hidden>
+			<div id="gameSettingsBar">
+				<div id="">
+					<table id="table">
+						<tbody id="tbodyCSS">
+							<tr>
+								<td>Score: </td>
+								<td><span id="lblScore"></span></td>
+							</tr>
+
+							<tr>
+								<td>Time: </td>
+								<td>
+									<p id="lblTime"></p>
+								</td>
+							</tr>
+
+							<tr>
+								<td>Player Name: </td>`
+								<td><span id="playerName"></span></td>
+							</tr>
+
+							<tr>
+								<td>Lives Left: </td>
+								<td><span id="livesLeft"></span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<h3>Settings</h3>
+				<div class="settingsBarCol">
+					<p id="ballNumSettingDisplay"></p>
+					<p id="gameTimeSettingDisplay"></p>
+					<p id="monsterNumSettingDisplay"></p>
+				</div>
+
+				<table>
+					<tbody>
+						<tr>
+							<td>5 Points Balls: </td>
+							<td><input id="inputColor1" type="color" disabled></input></td>
+						</tr>
+						<tr>
+							<td>15 Points Balls: </td>
+							<td><input id="inputColor2" type="color" disabled></input></span></td>
+						</tr>
+						<tr>
+							<td>25 Points Balls: </td>
+							<td><input id="inputColor3" type="color" disabled></input></span></td>
+						</tr>
+					</tbody>
+				</table>
+
+
+
+			</div>
+			<div id="gamePanle" style="width: 50%;">
+				<canvas id="canvas" height="660" width="660" style="border-style: solid;"></canvas>
+			</div>
+
+			<div id="gameButtonsBar" style="width: 25%; display: flex; flex-direction: column;">
+				<button id="soundBtn">MUTE</button>
+				<button id="newGameBtn">New Game</button>
+			</div>
+
+		</div>
+
+
+
+
 
 
 		<div id="welcomePage" class="firstPage">
@@ -98,7 +187,6 @@
 			<!--debug option-->
 			<img src="resources/images/pacmanBG.png" alt="" style="height: 25%;">
 		</div>
-
 		<!-- Register Window Starts -->
 		<div id="registerPage" class="subPage" hidden>
 			<h1>Welcome Guest!</h1>
@@ -151,12 +239,8 @@
 				</div>
 
 			</form>
-
-
 		</div>
-
 		<!-- Register Window End -->
-
 		<!-- Login Page Starts -->
 		<div id="loginPage" class="subPage" hidden>
 
@@ -186,10 +270,6 @@
 
 		</div>
 		<!-- Login Page Ends -->
-
-
-
-
 		<!-- settingsPage Starts-->
 		<div id="settingsPage" class="subPage" hidden style="width: 60%; margin-left: 20%;">
 			<form id="settingsForm">
@@ -244,7 +324,7 @@
 											<td>Game Time:</td>
 											<td><input id="gameTime" value="60" min="60" type="text"
 													placeholder="Game Time" aria-describedby="gameTime_error"
-													required></input></td>
+													style="text-align: center;" required></input></td>
 										</tr>
 									</tbody>
 								</table>
@@ -300,7 +380,7 @@
 						</div>
 					</div>
 				</div>
-				<br><br><br>
+				<br>
 				<div style="justify-content: center; text-align: center;">
 					<input type="submit"></input>
 					<button id="randomizeSettingsBtn">Randomize</button>
@@ -311,15 +391,16 @@
 
 		</div>
 		<!-- settingsPage Ends -->
-
 		<!-- About Page Begins -->
 		<div id="about">
-
 			<!-- The Modal -->
 			<div id="aboutModal" class="modal">
 				<!-- Modal content -->
 				<div class="modal-content">
-					<span class="close">&times;</span>
+					<div class="modal-head">
+						<span class="close">&times;</span>
+						About
+					</div>
 					<div class="modal-body">
 						Created by Dor Shireto and Lior Savchenko
 						<br>
@@ -330,7 +411,8 @@
 		</div>
 		<!-- About Page Ends -->
 
-	</div>
+
+
 	</div>
 
 </body>

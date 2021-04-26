@@ -219,7 +219,7 @@ function changeFoodColor() {
 }
 
 function loadSettingDisplayData() {
-	$("#ballNumSettingDisplay").text("Balls Number:" + foodNum);
+	$("#ballNumSettingDisplay").text("Balls Number: " + foodNum);
 	document.getElementById("inputColor1").value = food1_color;
 	document.getElementById("inputColor2").value = food2_color;
 	document.getElementById("inputColor3").value = food3_color;
