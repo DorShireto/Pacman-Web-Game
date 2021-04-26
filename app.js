@@ -716,7 +716,6 @@ function registerFieldValidation(username, password, fullname) {
 	// Full name check
 
 	if (!nameRegex.test(fullname)) {
-		// alert(nameRegex.test(fullname))
 		document.getElementById("fullname").style.borderColor = "red";
 		$("#fullname_error").text("Full name should contain only letters.");
 		valid = false;
@@ -939,16 +938,11 @@ $(function () {
 		food2_color = document.getElementById("food_type_2_color").value;
 		food3_color = document.getElementById("food_type_3_color").value;
 		gameTime = document.getElementById("gameTime").value;
-		alert("Monster num: " + document.getElementById("monsterNum").innerHTML)
 		monsterNum = document.getElementById("monsterNum").innerHTML;
 		// e.preventDefault();
 
 		let validColors = checkColors(food1_color, food2_color, food3_color);
-		alert("Valid colors: " + validColors);
-		alert("moveUp value: " + moveUp + "move down value: " + moveDown + "move right: " + moveRight + "move left: " + moveLeft)
 		let validArrows = checkArrows(moveUp, moveDown, moveLeft, moveRight);
-		alert("Valid arrows: " + validArrows);
-
 		if (validColors && validArrows) {
 			changePage("gamePage");
 			Start();

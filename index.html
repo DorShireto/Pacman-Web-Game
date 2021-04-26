@@ -41,15 +41,15 @@
 		}
 	</style>
 </head>
-<header>
-	<div class="headerContent">
-		header header header header header header header header header header
-	</div>
-</header>
+
 
 <body>
-
-	<div id="content" class="mainPage">
+	<header>
+		<div class="headerContent">
+			header header header header header header header header header header
+		</div>
+	</header>
+	<div id="content">
 		<!-- 
 		<div id="gamePage" hidden>
 			<div id="score" class="gamepageline">
@@ -101,7 +101,7 @@
 		</div>
  -->
 
-		<div id="gamePage" hidden>
+		<div id="gamePage" style="font-size: 18px;" hidden>
 			<div id="gameSettingsBar">
 				<div id="">
 					<table id="table">
@@ -124,7 +124,9 @@
 							</tr>
 
 							<tr>
-								<td>Lives Left: </td>
+								<td>
+									<p>Lives Left:</p>
+								</td>
 								<td><span id="livesLeft"></span></td>
 							</tr>
 						</tbody>
@@ -141,31 +143,45 @@
 				<table>
 					<tbody>
 						<tr>
-							<td>5 Points Balls: </td>
-							<td><input id="inputColor1" type="color" disabled></input></td>
+							<td>5 Points Balls:
+								<input id="inputColor1" type="color" style="margin-left:10px;" disabled></input>
+							</td>
 						</tr>
 						<tr>
-							<td>15 Points Balls: </td>
-							<td><input id="inputColor2" type="color" disabled></input></span></td>
+							<td>15 Points Balls:
+								<input id="inputColor2" type="color" style="margin-left:10px;" disabled></input></span>
+							</td>
 						</tr>
 						<tr>
-							<td>25 Points Balls: </td>
-							<td><input id="inputColor3" type="color" disabled></input></span></td>
+							<td>25 Points Balls:
+								<input id="inputColor3" type="color" style="margin-left:10px;" disabled></input></span>
+							</td>
 						</tr>
+					</tbody>
+				</table>
+				<table>
+					<tbody style="float: left; clear: none;">
+						<!-- <tr> -->
+						<div style="margin-top: 40px;">
+							<button class="gameOptionBtn" id="soundBtn">MUTE</button>
+							<button class="gameOptionBtn" id="newGameBtn">New Game</button>
+						</div>
+						<!-- </tr> -->
 					</tbody>
 				</table>
 
 
 
 			</div>
-			<div id="gamePanle" style="width: 50%;">
-				<canvas id="canvas" height="660" width="660" style="border-style: solid;"></canvas>
+			<div id="gamePanle">
+				<canvas id="canvas" height="660" width="660"
+					style="border-style: solid; background-color: #82c0d3;"></canvas>
 			</div>
 
-			<div id="gameButtonsBar" style="width: 25%; display: flex; flex-direction: column;">
+			<!-- <div id="gameButtonsBar" style="width: 25%; display: flex; flex-direction: column;">
 				<button id="soundBtn">MUTE</button>
 				<button id="newGameBtn">New Game</button>
-			</div>
+			</div> -->
 
 		</div>
 
@@ -181,6 +197,8 @@
 			<div>
 				<button id="register">Register</button>
 				<button id="login">Login</button>
+				<!-- <button id="fastGame">Quickplay</button> -->
+
 			</div>
 			<!-- Trigger/Open The Modal -->
 			<button id="aboutBtn">About</button>
@@ -363,7 +381,8 @@
 								<p id="arrow_error" style="color: red;"></p>
 							</div>
 							<h3>Number of monsters</h3>
-							<div id="monsterNumDiv" style="display: flex; justify-content: center;">
+							<div id="monsterNumDiv"
+								style="display: flex; justify-content: center; align-items: center;">
 								<div class="box">
 									<button id="lessMonsterB"><i class="fas fa-minus"></i></button>
 								</div>
@@ -414,13 +433,13 @@
 
 
 	</div>
-
+	<footer>
+		<div class="footerContent">footer footer footer footer footer footer footer footer footer footer footer</div>
+	</footer>
 </body>
 
 
-<footer>
-	<div class="footerContent">footer footer footer footer footer footer footer footer footer footer footer</div>
-</footer>
+
 
 
 
