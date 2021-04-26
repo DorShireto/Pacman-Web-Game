@@ -21,6 +21,11 @@ let gameTime = 60;
 let monsterNum = 1;
 let audio = new Audio('backgroundsound.mp3');
 audio.loop = true;
+let greenPacmanAudio = new Audio('./greenPacmanSound.wav');
+let killSound = new Audio('./killSound.wav');
+let gameOverSound = new Audio('./gameOverSound.wav');
+let winnerSound = new Audio('./winner.wav');
+
 let soundMuted = false;
 let playerName;
 let movingDirection = "right";
@@ -30,7 +35,7 @@ var context;
 var shape = new Object();
 var board;
 var score;
-var pac_color;
+var pac_color = "yellow";
 let eyeColor = "black";
 var start_time;
 var time_elapsed;
@@ -171,7 +176,7 @@ function Start() {
 		false
 	);
 	updatePacmanPositioInterval = setInterval(UpdatePacmanPosition, 100);
-	updateMonstersPositionInterval = setInterval(UpdateMonstersPosition, 700);
+	updateMonstersPositionInterval = setInterval(UpdateMonstersPosition, 300);
 	updateBonusPositionInterval = setInterval(updateBonusPosition, 300);
 
 	loadSettingDisplayData(); //for displaying the settings when game page is on
@@ -386,15 +391,30 @@ function UpdatePacmanPosition() {
 		}
 	}
 	if (board[shape.i][shape.j] == 11) {//food eaten
-		score = score + 5;
+		if (pac_color == "green") {
+			score = score + 10;//double score
+		}
+		else {
+			score = score + 5;
+		}
 		foodCollected++;
 	}
 	if (board[shape.i][shape.j] == 22) {//food eaten
-		score = score + 15;
+		if (pac_color == "green") {
+			score = score + 30;//double score
+		}
+		else {
+			score = score + 15;
+		}
 		foodCollected++;
 	}
 	if (board[shape.i][shape.j] == 33) {//food eaten
-		score = score + 25;
+		if (pac_color == "green") {
+			score = score + 50;//double score
+		}
+		else {
+			score = score + 25;
+		}
 		foodCollected++;
 	}
 	board[shape.i][shape.j] = 2;
@@ -402,8 +422,15 @@ function UpdatePacmanPosition() {
 	time_elapsed = (currentTime - start_time) / 1000;
 	if (score >= 100 && time_elapsed <= 10 && livesLeft == 5) {
 		pac_color = "green";
+		if (!soundMuted) {
+			greenPacmanAudio.play();
+
+		}
 	}
 	if (foodCollected == foodNum) {
+		if (!soundMuted) {
+			winnerSound.play();
+		}
 		window.clearInterval(updatePacmanPositioInterval);
 		window.clearInterval(updateMonstersPositionInterval);
 		window.clearInterval(updateBonusPositionInterval);
@@ -425,6 +452,10 @@ function UpdatePacmanPosition() {
 	else if (collisionCheck()) {
 		if (livesLeft <= 0) {
 			//game over
+			if (!soundMuted) {
+				gameOverSound.play();
+
+			}
 			alert("LOSER");
 			window.clearInterval(updateBonusPositionInterval);
 			window.clearInterval(updateMonstersPositionInterval);
@@ -432,6 +463,10 @@ function UpdatePacmanPosition() {
 			changePage("welcomePage");
 		}
 		else {
+			if (!soundMuted) {
+				killSound.play();
+
+			}
 			window.alert("Monster caught you!");
 			// Start();
 			window.clearInterval(updateMonstersPositionInterval);
@@ -575,6 +610,7 @@ function collisionCheck() {
 		let shapeX_pxl = shape.i * 60;
 		let shapeY_pxl = shape.j * 60;
 		if (monster.x == shapeX_pxl && monster.y == shapeY_pxl) {
+
 			keysDown = {}; //prevent sticky key after been caught
 			pac_color = "yellow"; //return pacman to regular color
 			if (monster.superMonster) {
@@ -855,7 +891,8 @@ function randomizeSettings() {
 	//game time :
 	document.getElementById("gameTime").value = Math.floor(Math.random() * 500) + 60;
 	//monsters:
-	document.getElementById("monsterNum").textContent = Math.floor(Math.random() * 4) + 1;
+	monsterNum = Math.floor(Math.random() * 4) + 1;
+	document.getElementById("monsterNum").textContent = monsterNum;
 }
 
 
