@@ -177,7 +177,7 @@ function Start() {
 	);
 	updatePacmanPositioInterval = setInterval(UpdatePacmanPosition, 100);
 	updateMonstersPositionInterval = setInterval(UpdateMonstersPosition, 300);
-	updateBonusPositionInterval = setInterval(updateBonusPosition, 300);
+	updateBonusPositionInterval = setInterval(updateBonusPosition, 500);
 
 	loadSettingDisplayData(); //for displaying the settings when game page is on
 }
@@ -263,6 +263,7 @@ function DrawBonus() {
 }
 function Draw() {
 	canvas.width = canvas.width; //clean board
+
 	$("#lblScore").text(score);
 	$("#lblTime").text(time_elapsed);
 	for (var i = 0; i < 11; i++) {
@@ -346,8 +347,6 @@ function Draw() {
 				context.fillStyle = food3_color; //color
 				context.fill();
 			}
-
-
 			//wall:
 			else if (board[i][j] == 4) {
 				context.beginPath();
@@ -372,24 +371,25 @@ function UpdatePacmanPosition() {
 			movingDirection = "up";
 		}
 	}
-	if (x == 2) {
+	else if (x == 2) {
 		if (shape.j < 10 && board[shape.i][shape.j + 1] != 4) {//down
 			shape.j++;
 			movingDirection = "down";
 		}
 	}
-	if (x == 3) {
+	else if (x == 3) {
 		if (shape.i > 0 && board[shape.i - 1][shape.j] != 4) {//left
 			shape.i--;
 			movingDirection = "left";
 		}
 	}
-	if (x == 4) {
+	else if (x == 4) {
 		if (shape.i < 10 && board[shape.i + 1][shape.j] != 4) {//right
 			shape.i++;
 			movingDirection = "right";
 		}
 	}
+
 	if (board[shape.i][shape.j] == 11) {//food eaten
 		if (pac_color == "green") {
 			score = score + 10;//double score
@@ -420,7 +420,7 @@ function UpdatePacmanPosition() {
 	board[shape.i][shape.j] = 2;
 	var currentTime = new Date();
 	time_elapsed = (currentTime - start_time) / 1000;
-	if (score >= 100 && time_elapsed <= 10 && livesLeft == 5) {
+	if (score >= 300 && time_elapsed <= 10 && livesLeft > 3) {
 		pac_color = "green";
 		if (!soundMuted) {
 			greenPacmanAudio.play();
@@ -476,7 +476,8 @@ function UpdatePacmanPosition() {
 			context.clearRect(shape.i, shape.j, 60, 60);
 			randomizePacmanLocation();
 		}
-	} else if (collisionWithBonusCheck()) {
+	}
+	else if (collisionWithBonusCheck()) {
 		window.clearInterval(updateBonusPositionInterval);
 	}
 	else {
