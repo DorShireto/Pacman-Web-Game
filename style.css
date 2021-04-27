@@ -186,74 +186,71 @@ input[type=text], input[type=password], input[type=email] {
 
 
 header{
-	
-	position: fixed;
-	text-align: center;
 	top: 0;
-	width: 100%;
-	border: 1px solid red;
+    left: 0;
+    position: relative;
+    width: 100%;
+    height: 10%;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    z-index: 0;
 }
-.headerContent{
-	background: transparent;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 0;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+footer{
+    left: 0;
+    position: relative;
+    width: 100%;
+    height: 10%;
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    z-index: 0;
 }
 
 #content{
 	position: relative;
-	margin-top: 6%;
-	/* top: 50%; */
-	/* left: 0; */
-	width: 100%;
-	min-height: 660px;
-	display: flex;
+    width: 100%;
+	min-height: 90vh;
   }
 
 body{
 	background: #022831;
+}
+
+.centerForm{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.rowGrid{
+	display: grid;
+   grid-template-columns: repeat(2, 0.9fr);
+   grid-template-rows: repeat(2, 80px);
+}
+.rowTable{
+	display: table;
+	margin-left: 25%;
 
 }
 
-footer{
-	position: fixed;
-	text-align: center;
-	bottom: 0;
-	width: 100%;
-	border: 1px solid red;
+.wrapper div{
+float: left;
+}
 
+.rowTableInner{
+	margin-top: 10px;
+	/* margin-left: 50%; */
+	display: table-cell;
+	/* float: left; */
 }
-.footerContent{
-	background: transparent;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 0;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-}
+
+
+
 #pacmanLogo{
 height: 30%; 
 width: 30%; 
-border: 5px solid black; 
-}
-
-
-.firstPage{
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-	flex-direction: column;
-	border: 5px solid black;
-}
-
-#welcomePage{
-	width: 60%;
-	height: 80%;
-	margin: auto;	
-	background: #01171D;
 }
 
 [hidden] {
@@ -261,33 +258,25 @@ border: 5px solid black;
 }
 
 .subPage{
-	display: flex;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 80%;
+	min-height: 80vh;
+    font-size: 20px; 
     align-items: center;
-    justify-content: center;
+	text-align: center;
 	flex-direction: column;
 	border: 5px solid black;
 	background: #01171D;
+	margin: auto;
+
 	/* background: #07849D; */
 
 
-}
-
-#registerPage{
-	/* background: url(resources/images/registerBG.jpg) no-repeat !important; */
-	width: 60%;
-	height: 80%;
-	margin: auto;	
-
-}
-
-
-#loginPage{
-	width: 60%;
-	height: 80%;
-	margin: auto;
-}
-.registerPage{
-	margin: auto;
 }
 
 .formDivs{
@@ -296,13 +285,8 @@ border: 5px solid black;
     align-items: center;
   }
 
- 
-  #settingsPage{
-	width: 60%;
-	height: 85%;
-	margin: auto;	
-	/* background: #01171D; */
-}
+
+
 
 button{
 	margin: 10px;
@@ -314,7 +298,7 @@ button{
     cursor: pointer;
 }
 button:hover{
-	background-color: gray;
+	background-color: #f8cb00;
 }
 
 .gameOptionBtn{
@@ -324,14 +308,6 @@ button:hover{
 	 margin-top: 10px;
 }
 
-#table{
-	/* width: 100px; */
-	text-align: center;
-	margin-left: auto; 
-	margin-right: auto; 
-	margin-top: auto; 
-	margin-bottom: auto;
-}
 
 .movemntKeys{ 
 	width:57px; 
@@ -342,48 +318,48 @@ button:hover{
 #settingsBar{
 	display: flex;
 }
-.settingsBarCol{
-	/* margin-left: 18px; */
-}
-
-/* .gamepageline{
-	display: flex;
-	align-items: center;
-	margin-top: 0px;
-} */
-
-
-
-#gamePage{
-	/* align-items: center;
-	align-self: center; */
-	/* margin: 0; */
-  position: relative;
-  /* top: 30%; */
-  /* left: 15%; */
-  justify-content: center;
-  padding-right: 200px;
-	display: flex;
-	width: 100%;
-
-}
-
-
 
 
 #tbodyCSS td{
 	width: 80px;
 }
 
-#gameSettingsBar{
-	width: 22%; 
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	align-self: center;
-	/* margin: auto; */
-	/* margin-right: 30px; */
+
+.heading{
+	margin-top: 5vh;
+
 }
+
+#registerForm{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+canvas{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 60%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	float: left;
+}
+
+#gameSettingsBar{
+	text-align: left;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 25%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	float: left;
+}
+
 
 #gameButtonsBar{
 	flex-direction: column;
@@ -394,11 +370,3 @@ button:hover{
 
 	
 }
-
-
-/* #gameButtonsBar button{
-
-	width: 90px;
-	margin-top: 2rem;
-	/* margin-left: 30%; */
-} */

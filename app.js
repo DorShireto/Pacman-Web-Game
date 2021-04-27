@@ -225,6 +225,10 @@ function loadSettingDisplayData() {
 	document.getElementById("inputColor3").value = food3_color;
 	$("#gameTimeSettingDisplay").text("Game Time: " + gameTime);
 	$("#monsterNumSettingDisplay").text("Monster Number: " + monsterNum);
+	$("#playerName").text("Player Name: " + playerName);
+
+
+
 }
 
 function findRandomEmptyCell(board) {
@@ -264,8 +268,9 @@ function DrawBonus() {
 function Draw() {
 	canvas.width = canvas.width; //clean board
 
-	$("#lblScore").text(score);
-	$("#lblTime").text(time_elapsed);
+	$("#lblScore").text("Score: " + score);
+	$("#lblTime").text("Time Elapsed: " + time_elapsed);
+	$("#livesLeft").text("Lives Left: " + livesLeft);
 	for (var i = 0; i < 11; i++) {
 		for (var j = 0; j < 11; j++) {
 			var center = new Object();
@@ -761,6 +766,8 @@ $(function () {
 				alert("logged in successfully \nWelcome " + users[typedUsername][1]);
 				$("#playerName").text(typedUsername);
 				changePage('settingsPage');
+				document.getElementById("usernameLogin").value = "";
+				document.getElementById("passwordLogin").value = "";
 			}
 			else {
 				$("#login_error").text("Username or Password incorrect");
@@ -986,12 +993,12 @@ function checkArrows(arrow1, arrow2, arrow3, arrow4) {
 
 
 
-// $(function () {
-// 	$("#fastGame").click(function (e) {
-// 		changePage("gamePage");
-// 		Start();
-// 	});
-// });
+$(function () {
+	$("#fastGame").click(function (e) {
+		changePage("gamePage");
+		Start();
+	});
+});
 
 
 

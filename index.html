@@ -50,60 +50,9 @@
 		</div>
 	</header>
 	<div id="content">
-		<!-- 
-		<div id="gamePage" hidden>
-			<div id="score" class="gamepageline">
-				<p>SCORE:</p>
-				<span id="lblScore"></span>
-			</div>
-			<div id="time" class="gamepageline">
-				<p>TIME:</p>
-				<p id="lblTime"></p>
-			</div>
-			<div id="userNameDiv" class="gamepageline">
-				<p>Player Name:</p>
-				<span id="playerName"></span>
-			</div>
-			<div id="livesLeftDiv" class="gamepageline">
-				<p>Lives Left:</p>
-				<span id="livesLeft"></span>
-			</div>
-			<div id="settingsBar">
-				<h3>SETTINGS:</h3>
-				<div class="settingsBarCol">
-					<p id="ballNumSettingDisplay"></p>
-					<p id="gameTimeSettingDisplay"></p>
-					<p id="monsterNumSettingDisplay"></p>
-				</div>
-				<div class="settingsBarCol">
-
-					<div class="gamepageline">
-						<input id="inputColor1" type="color" disabled></input>
-						<p>Balls Score: 5</p>
-					</div>
-					<div class="gamepageline">
-						<input id="inputColor2" type="color" disabled></input>
-						<p>Balls Score: 15</p>
-					</div>
-					<div class="gamepageline">
-						<input id="inputColor3" type="color" disabled></input>
-						<p>Balls Score: 25</p>
-					</div>
-				</div>
-				<button id="soundBtn">MUTE</button>
-
-
-			</div>
-			<div id="game">
-				<canvas id="canvas" height="660" width="660" style="border-style: solid;"></canvas>
-				<button id="newGameBtn">New Game</button>
-			</div>
-		</div>
- -->
-
-		<div id="gamePage" style="font-size: 18px;" hidden>
-			<div id="gameSettingsBar">
-				<div id="">
+		<div id="gamePage" class="subPage" hidden>
+			<!-- <div id="gameSettingsBar"> -->
+			<!-- <div id="">
 					<table id="table">
 						<tbody id="tbodyCSS">
 							<tr>
@@ -158,58 +107,80 @@
 							</td>
 						</tr>
 					</tbody>
-				</table>
-				<table>
+				</table> -->
+			<!-- <table>
 					<tbody style="float: left; clear: none;">
-						<!-- <tr> -->
 						<div style="margin-top: 40px;">
 							<button class="gameOptionBtn" id="soundBtn">MUTE</button>
 							<button class="gameOptionBtn" id="newGameBtn">New Game</button>
 						</div>
-						<!-- </tr> -->
 					</tbody>
-				</table>
+				</table> -->
+			<!-- </div> -->
 
+			<div id="gameSettingsBar">
+				<p id="lblScore"></p>
+				<p id="lblTime"></p>
+				<p id="playerName"></p>
+				<p id="livesLeft"></p>
+				<div class="wrapper">
+					<h3 style="margin-bottom:0px ;">Settings</h3>
+					<div class="left">
+						<p id="ballNumSettingDisplay"></p>
+						<p id="gameTimeSettingDisplay"></p>
+						<p id="monsterNumSettingDisplay"></p>
+					</div>
+					<div class="left">
+						<div class="rowTable">
+							<p class="rowTableInner">5 Points Balls:</p>
+							<input id="inputColor1" class="rowTableInner" type="color" disabled></input>
+						</div>
+						<div class="rowTable">
+							<p class="rowTableInner">15 Points Balls:</p>
+							<input id="inputColor2" class="rowTableInner" type="color" disabled></input>
+						</div>
+						<div class="rowTable">
+							<p class="rowTableInner">25 Points Balls:</p>
+							<input id="inputColor3" class="rowTableInner" type="color" disabled></input>
+						</div>
+					</div>
 
+				</div>
 
+				<div style="margin-top: 180px;">
+					<button class="gameOptionBtn" id="soundBtn">MUTE</button>
+					<button class="gameOptionBtn" id="newGameBtn">New Game</button>
+				</div>
 			</div>
-			<div id="gamePanle">
-				<canvas id="canvas" height="660" width="660"
-					style="border-style: solid; background-color: #82c0d3;"></canvas>
-			</div>
-
-			<!-- <div id="gameButtonsBar" style="width: 25%; display: flex; flex-direction: column;">
-				<button id="soundBtn">MUTE</button>
-				<button id="newGameBtn">New Game</button>
-			</div> -->
-
+			<!-- <div id="gamePanel"> -->
+			<canvas id="canvas" height="660" width="660"
+				style="border-style: solid; background-color: #82c0d3;"></canvas>
+			<!-- </div> -->
 		</div>
-
-
-
-
-
-
-		<div id="welcomePage" class="firstPage">
+		<div id="welcomePage" class="subPage">
 
 			<img src="resources/images/pacman_logo.png" alt="" id="pacmanLogo" class="center">
 			<img src="" alt="">
 			<div>
 				<button id="register">Register</button>
 				<button id="login">Login</button>
-				<!-- <button id="fastGame">Quickplay</button> -->
+				<button id="aboutBtn">About</button>
+
+				<button id="fastGame">Quickplay</button>
 
 			</div>
 			<!-- Trigger/Open The Modal -->
-			<button id="aboutBtn">About</button>
 			<!--debug option-->
 			<img src="resources/images/pacmanBG.png" alt="" style="height: 25%;">
 		</div>
+
 		<!-- Register Window Starts -->
 		<div id="registerPage" class="subPage" hidden>
-			<h1>Welcome Guest!</h1>
-			<h3>Please fill up the follow form to be able to play</h3>
-			<form id="registerForm">
+			<div class="heading">
+				<h1>REGISTER</h1>
+				<h3>Please fill up the follow form to be able to play</h3>
+			</div>
+			<form id="registerForm" class="">
 				<table id="table">
 					<tbody>
 						<tr>
@@ -261,26 +232,22 @@
 		<!-- Register Window End -->
 		<!-- Login Page Starts -->
 		<div id="loginPage" class="subPage" hidden>
+			<div class="heading">
+				<h1>LOGIN</h1>
+				<h3>Please Login To Your Account</h3>
+			</div>
+			<form id="loginForm" class="centerForm">
+				<div class="rowGrid">
+					<p class="box1">User Name:</p>
+					<input id="usernameLogin" class="box2" type="text" placeholder="Username" required />
+					<p class="box3">Password:</p>
+					<input id="passwordLogin" class="box4" type="password" placeholder="Password" required />
+				</div>
+				<p id="login_error" class="box5" style="color: red; text-align: center; margin-top: 0px;"></p>
 
-			<form id="loginForm">
-				<table id="table">
-					<tbody>
-						<tr>
-							<td>User Name:</td>
-							<td><input id="usernameLogin" type="text" placeholder="Username" required /></td>
-						</tr>
-
-						<tr>
-							<td>Password:</td>
-							<td><input id="passwordLogin" type="password" placeholder="Password" required /></td>
-						</tr>
-
-					</tbody>
-				</table>
-				<p id="login_error" style="color: red; text-align: center;"></p>
-				<div style="text-align: center;">
-					<input type="submit"></input>
-					<button type="button" onclick="changePage('welcomePage')">Back</button>
+				<div class="rowTable">
+					<input type="submit" class="rowTableInner"></input>
+					<button type="button" onclick="changePage('welcomePage')" class="rowTableInner">Back</button>
 				</div>
 
 
@@ -289,14 +256,10 @@
 		</div>
 		<!-- Login Page Ends -->
 		<!-- settingsPage Starts-->
-		<div id="settingsPage" class="subPage" hidden style="width: 60%; margin-left: 20%;">
-			<form id="settingsForm">
+		<div id="settingsPage" class="subPage" hidden>
+			<form id="settingsForm" class="centerForm">
 				<div id="settingHeader">
-					<!-- <div style="width: 50%; margin: auto;"> -->
-					<div style="text-align: center;">
-						<h2>SETTINGS</h2>
-					</div>
-
+					<h1>SETTINGS</h1>
 					<!-- </div> -->
 					<div id="settingsArea" style="display: flex; justify-content: center;">
 						<!-- <div id="game_config" style="border-right: aliceblue 1px solid"> -->
@@ -353,13 +316,15 @@
 						<div id="game_config"
 							style="border-left: aliceblue 1px solid; padding-left: 2em; justify-content: center;">
 							<h3>Movment Settings</h3>
-							<h5>Please click on the arrow to change keyborad control <br>Once the arrow is chosen press
+							<h5>Please click on the arrow to change keyborad control <br>Once the arrow is chosen
+								press
 								the wished <br> key in your keyborad</h5>
 							<div style="justify-content: center;">
 								<table id="table">
 									<tbody>
 										<tr>
-											<td><button id="moveUpKey"><i class="fas fa-arrow-up i"></i></button></td>
+											<td><button id="moveUpKey"><i class="fas fa-arrow-up i"></i></button>
+											</td>
 
 											<td><span id="upKeyP" class="movemntKeys"></span></td>
 
@@ -429,12 +394,10 @@
 			</div>
 		</div>
 		<!-- About Page Ends -->
-
-
-
 	</div>
 	<footer>
-		<div class="footerContent">footer footer footer footer footer footer footer footer footer footer footer</div>
+		<div class="footerContent">footer footer footer footer footer footer footer footer footer footer footer
+		</div>
 	</footer>
 </body>
 
