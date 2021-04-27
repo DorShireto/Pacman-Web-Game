@@ -243,7 +243,6 @@ footer{
 #pacmanLogo{
 height: 30%; 
 width: 30%; 
-border: 5px solid black; 
 }
 
 
@@ -288,6 +287,15 @@ border: 5px solid black;
 	margin: auto;	
 
 }
+
+#registerPage h1{
+	margin: 0;
+}
+#registerPage h3{
+	margin: 5px;
+}
+
+
 
 
 #loginPage{
@@ -384,4 +392,27 @@ border: 5px solid black;
 	width: 90px;
 	margin-top: 3rem;
 	margin-left: 30%;
+}
+
+.monsterButton{
+	background: transparent;
+	border: none !important;
+}
+
+.monsterButton:hover{
+    transform: translateY(-10px);
+    transition-duration: 1s;
+}
+
+
+.monsterButton img{
+	height: 100px !important;
+}
+
+.monsterRegBtn img{
+	height: 80px !important;
+}
+
+.menu{
+	margin-right: 5%;
 }

@@ -17,7 +17,7 @@
 	<!-- FONT AWESOME -->
 	<link rel="stylesheet" href="style.css">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<style>
 		/* width */
@@ -39,7 +39,9 @@
 		::-webkit-scrollbar-thumb:hover {
 			background: #555;
 		}
-	</style>
+	</style> -->
+
+
 </head>
 <header>
 	<div class="headerContent">
@@ -177,20 +179,32 @@
 		<div id="welcomePage" class="firstPage">
 
 			<img src="resources/images/pacman_logo.png" alt="" id="pacmanLogo" class="center">
-			<img src="" alt="">
-			<div>
+			<menu class="menu">
+				<button id="register" class="monsterButton"><img src="resources\monsters\blueGhost.png" alt="" ><br><h3>Register</h3></button>
+				<button id="login" class="monsterButton"><img src="resources\monsters\brownGhost.png" alt="" ><br><h3>Login</h3></button>
+				<button id="aboutBtn" class="monsterButton aboutBtnClass"><img src="resources\monsters\greenGhost.png" alt="" ><br><h3>About</h3></button>
+			</menu>
+
+			<!-- <div>
 				<button id="register">Register</button>
 				<button id="login">Login</button>
-			</div>
+			</div> -->
 			<!-- Trigger/Open The Modal -->
-			<button id="aboutBtn">About</button>
+			<!-- <button id="aboutBtn">About</button> -->
 			<!--debug option-->
 			<img src="resources/images/pacmanBG.png" alt="" style="height: 25%;">
 		</div>
 		<!-- Register Window Starts -->
 		<div id="registerPage" class="subPage" hidden>
+
+			<menu id="menuReg" class="menu">
+				<button id="login1" class="monsterButton monsterRegBtn"><img src="resources\monsters\brownGhost.png" alt="" ><br><h3>Login</h3></button>
+				<button id="aboutBtn1" class="monsterButton monsterRegBtn aboutBtnClass"><img src="resources\monsters\greenGhost.png" alt="" ><br><h3>About</h3></button>
+			</menu>
+
 			<h1>Welcome Guest!</h1>
 			<h3>Please fill up the follow form to be able to play</h3>
+
 			<form id="registerForm">
 				<table id="table">
 					<tbody>
@@ -417,10 +431,11 @@
 
 </body>
 
-
-<footer>
+<footer id="footerID" onclick="closeModalFooterClick()">
 	<div class="footerContent">footer footer footer footer footer footer footer footer footer footer footer</div>
 </footer>
+
+
 
 
 
