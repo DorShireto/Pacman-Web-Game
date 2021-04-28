@@ -25,7 +25,6 @@ let greenPacmanAudio = new Audio('./greenPacmanSound.wav');
 let killSound = new Audio('./killSound.wav');
 let gameOverSound = new Audio('./gameOverSound.wav');
 let winnerSound = new Audio('./winner.wav');
-
 let soundMuted = false;
 let playerName = "nan";
 let movingDirection = "right";
@@ -67,10 +66,10 @@ function changePage(newPage) {
 
 $(document).ready(function () {
 	//update setting fields
-	document.getElementById("upKeyP").innerText = moveUp;
-	document.getElementById("rightKeyP").innerText = moveRight;
-	document.getElementById("downKeyP").innerText = moveDown;
-	document.getElementById("leftKeyP").innerText = moveLeft;
+	document.getElementById("upKeyP").innerText = "Up Arrow";
+	document.getElementById("rightKeyP").innerText = "Right Arrow";
+	document.getElementById("downKeyP").innerText = "Down Arrow";
+	document.getElementById("leftKeyP").innerText = "Left Arrow";
 	document.getElementById("foodNumInput").value = foodNum;
 	$("#foodNum").text(foodNum);
 	// document.getElementById("food_type_1_color").value = food1_color;
@@ -240,32 +239,32 @@ function loadSettingDisplayData() {
 	// Movement keys:
 	let upChar, downChar, leftChar, rightChar
 
-	if (document.getElementById("upKeyP").innerText == '38') {
-		upChar = "Up Arrow"
+	if (moveUp == '38') {
+		upChar = "Up Arrow";
 	}
 	else {
-		upChar = String.fromCharCode(document.getElementById("upKeyP").innerText)
+		upChar = String.fromCharCode(moveUp);
 	}
 
-	if (document.getElementById("downKeyP").innerText == '40') {
-		downChar = "Down Arrow"
+	if (moveDown == '40') {
+		downChar = "Down Arrow";
 	}
 	else {
-		downChar = String.fromCharCode(document.getElementById("downKeyP").innerText)
+		downChar = String.fromCharCode(moveDown);
 	}
 
-	if (document.getElementById("leftKeyP").innerText == '37') {
-		leftChar = "Left Arrow"
+	if (moveLeft == '37') {
+		leftChar = "Left Arrow";
 	}
 	else {
-		leftChar = String.fromCharCode(document.getElementById("leftKeyP").innerText)
+		leftChar = String.fromCharCode(moveLeft);
 	}
 
-	if (document.getElementById("rightKeyP").innerText == '39') {
-		rightChar = "Right Arrow"
+	if (moveRight == '39') {
+		rightChar = "Right Arrow";
 	}
 	else {
-		rightChar = String.fromCharCode(document.getElementById("rightKeyP").innerText)
+		rightChar = String.fromCharCode(moveRight);
 	}
 
 
@@ -723,6 +722,12 @@ $(function () {
 
 $(function () {
 	$("#register").click(function (e) {
+		playerName = "nan";
+		if (currentPage == "gamePage") {
+			window.clearInterval(updateBonusPositionInterval);
+			window.clearInterval(updateMonstersPositionInterval);
+			window.clearInterval(updatePacmanPositioInterval);
+		}
 		changePage("registerPage");
 	});
 });
@@ -821,6 +826,12 @@ function hasLetter(password) {
 // *********************  LOGIN  ******************//
 $(function () {
 	$("#login").click(function (e) {
+		playerName = "nan";
+		if (currentPage == "gamePage") {
+			window.clearInterval(updateBonusPositionInterval);
+			window.clearInterval(updateMonstersPositionInterval);
+			window.clearInterval(updatePacmanPositioInterval);
+		}
 		changePage("loginPage");
 	});
 });
@@ -920,6 +931,11 @@ function closeModalFooterClick() {
 $(function () {
 	$("#settings").click(function (e) {
 		e.preventDefault();
+		if (currentPage == "gamePage") {
+			window.clearInterval(updateBonusPositionInterval);
+			window.clearInterval(updateMonstersPositionInterval);
+			window.clearInterval(updatePacmanPositioInterval);
+		}
 		if (playerName != "nan") {
 			changePage("settingsPage");
 		}
@@ -948,18 +964,18 @@ function randomizeSettings() {
 
 
 	//move keys:
-	document.getElementById("moveUpKey").value = "38";
-	document.getElementById("moveRightKey").value = "39";
-	document.getElementById("moveDownKey").value = "40";
-	document.getElementById("moveLeftKey").value = "37";
+	document.getElementById("moveUpKey").value = "Up Arrow";
+	document.getElementById("moveRightKey").value = "Right Arrow";
+	document.getElementById("moveDownKey").value = "Down Arrow";
+	document.getElementById("moveLeftKey").value = "Left Arrow";
 	moveLeft = 37;
 	moveUp = 38;
 	moveDown = 40;
 	moveRight = 39;
-	document.getElementById("upKeyP").innerText = moveUp;
-	document.getElementById("rightKeyP").innerText = moveRight;
-	document.getElementById("downKeyP").innerText = moveDown;
-	document.getElementById("leftKeyP").innerText = moveLeft;
+	document.getElementById("upKeyP").innerText = "Up Arrow";
+	document.getElementById("rightKeyP").innerText = "Right Arrow";
+	document.getElementById("downKeyP").innerText = "Down Arrow";
+	document.getElementById("leftKeyP").innerText = "Left Arrow";
 	//food number:
 	const randomFoodNum = Math.floor(Math.random() * 41) + 50;
 	document.getElementById("foodNumInput").value = randomFoodNum;
@@ -1011,10 +1027,7 @@ $(function () {
 $(function () {
 	$("#settingsForm").submit(function (e) {
 		// no validation needed because fields checked onChange and all fields required
-		moveUp = document.getElementById("upKeyP").innerText;
-		moveRight = document.getElementById("rightKeyP").innerText;
-		moveDown = document.getElementById("downKeyP").innerText;
-		moveLeft = document.getElementById("leftKeyP").innerText;
+
 		foodNum = document.getElementById("foodNumInput").value;
 		food1_color = document.getElementById("food_type_1_color").value;
 		food2_color = document.getElementById("food_type_2_color").value;
@@ -1154,9 +1167,13 @@ $(function () {
 
 		e.preventDefault();
 		document.addEventListener('keydown', function changeKey(e) {
-			keyUpdateListener(e, "moveUpKey");
+			// keyUpdateListener(e, "moveUpKey");
 			document.removeEventListener('keydown', changeKey);
-			$("#upKeyP").text(e.keyCode);
+
+			moveUp = e.keyCode;
+			$("#upKeyP").text(String.fromCharCode(e.keyCode));
+
+			// $("#upKeyP").text(e.keyCode);
 		});
 		document.getElementById("moveUpKey").blur();
 	})
@@ -1169,9 +1186,13 @@ $(function () {
 	$("#moveLeftKey").click(function (e) {
 		e.preventDefault();
 		document.addEventListener('keydown', function changeKey(e) {
-			keyUpdateListener(e, "moveLeftKey");
+			// keyUpdateListener(e, "moveLeftKey");
 			document.removeEventListener('keydown', changeKey);
-			$("#leftKeyP").text(e.keyCode);
+
+			moveLeft = e.keyCode;
+			$("#leftKeyP").text(String.fromCharCode(e.keyCode));
+
+			// $("#leftKeyP").text(e.keyCode);
 		});
 		document.getElementById("moveLeftKey").blur();
 	})
@@ -1183,9 +1204,13 @@ $(function () {
 
 		e.preventDefault();
 		document.addEventListener('keydown', function changeKey(e) {
-			keyUpdateListener(e, "moveDownKey");
+			// keyUpdateListener(e, "moveDownKey");
 			document.removeEventListener('keydown', changeKey);
-			$("#downKeyP").text(e.keyCode);
+
+			moveDown = e.keyCode;
+			$("#downKeyP").text(String.fromCharCode(e.keyCode));
+
+			// $("#downKeyP").text(e.keyCode);
 		});
 		document.getElementById("moveDownKey").blur();
 	})
@@ -1198,9 +1223,10 @@ $(function () {
 
 		e.preventDefault();
 		document.addEventListener('keydown', function changeKey(e) {
-			keyUpdateListener(e, "moveRightKey");
+			// keyUpdateListener(e, "moveRightKey");
 			document.removeEventListener('keydown', changeKey);
-			$("#rightKeyP").text(e.keyCode);
+			moveRight = e.keyCode;
+			$("#rightKeyP").text(String.fromCharCode(e.keyCode));
 		});
 		document.getElementById("moveRightKey").blur();
 	})
@@ -1209,26 +1235,26 @@ $(function () {
 });
 
 
-let keyUpdateListener = function (event, id) {
-	test(event.keyCode, id);
-};
+// let keyUpdateListener = function (event, id) {
+// 	updateCode(event.keyCode, id);
+// };
 
-function test(code, id) {
-	switch (id) {
-		case "moveUpKey":
-			moveUp = code;
-			break;
-		case "moveLeftKey":
-			moveLeft = code;
-			break;
-		case "buttonD":
-			moveDownKey = code;
-			break;
-		case "moveRightKey":
-			moveRight = code;
-			break;
-	}
-}
+// function updateCode(code, id) {
+// 	switch (id) {
+// 		case "moveUpKey":
+// 			moveUp = code;
+// 			break;
+// 		case "moveLeftKey":
+// 			moveLeft = code;
+// 			break;
+// 		case "buttonD":
+// 			moveDownKey = code;
+// 			break;
+// 		case "moveRightKey":
+// 			moveRight = code;
+// 			break;
+// 	}
+// }
 
 
 
