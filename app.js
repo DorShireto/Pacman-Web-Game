@@ -19,12 +19,12 @@ let backgroundMusic;
 let livesLeft = 5;
 let gameTime = 60;
 let monsterNum = 1;
-let audio = new Audio('backgroundsound.mp3');
+let audio = new Audio('resources/backgroundsound.mp3');
 audio.loop = true;
-let greenPacmanAudio = new Audio('./greenPacmanSound.wav');
-let killSound = new Audio('./killSound.wav');
-let gameOverSound = new Audio('./gameOverSound.wav');
-let winnerSound = new Audio('./winner.wav');
+let greenPacmanAudio = new Audio('resources/greenPacmanSound.wav');
+let killSound = new Audio('resources/killSound.wav');
+let gameOverSound = new Audio('resources/gameOverSound.wav');
+let winnerSound = new Audio('resources/winner.wav');
 let soundMuted = false;
 let playerName = "nan";
 let movingDirection = "right";
@@ -110,13 +110,13 @@ function Start() {
 	{ img: new Image(), x: 600, y: 0, superMonster: true },
 	{ img: new Image(), x: 0, y: 600, superMonster: true },
 	{ img: new Image(), x: 600, y: 600, superMonster: false }];
-	monsters[0].img.src = './monster1.png';
-	monsters[1].img.src = './monster2.png';
-	monsters[2].img.src = './monster2.png';
-	monsters[3].img.src = './monster1.png';
+	monsters[0].img.src = 'resources/monster1.png';
+	monsters[1].img.src = 'resources/monster2.png';
+	monsters[2].img.src = 'resources/monster2.png';
+	monsters[3].img.src = 'resources/monster1.png';
 	// load bonus object
 	bonusObj = { img: new Image(), x: 300, y: 300, cought: false };
-	bonusObj.img.src = './50pts.png';
+	bonusObj.img.src = 'resources/50pts.png';
 	//****************** */
 	movingDirection = "right";
 	context = canvas.getContext("2d");
@@ -1027,6 +1027,10 @@ $(function () {
 $(function () {
 	$("#settingsForm").submit(function (e) {
 		// no validation needed because fields checked onChange and all fields required
+
+		$("#canvas").show();
+		document.getElementById("messageBox").style.display = 'none';
+
 
 		foodNum = document.getElementById("foodNumInput").value;
 		food1_color = document.getElementById("food_type_1_color").value;
