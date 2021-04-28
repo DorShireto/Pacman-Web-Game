@@ -1,3 +1,4 @@
+
 p{
 	color: white;
 }
@@ -6,12 +7,20 @@ h1,h2,h3,h4,h5{
 }
 td{
 	color: white;
+	/* width: 30px; */
 }
 
-/* html,body,header,footer{
-	overflow:auto;
+/* @media screen and (max-width: 1400px) {
+	header{
+		background: red;
+	}	
 } */
 
+#canvas{
+	border-style: solid; 
+	/* background-color: #82c0d3; */
+	background: url("resources/images/canvasBG.jpg");
+}
 
 
 /* Registertion form starts */
@@ -103,7 +112,7 @@ input[type=text], input[type=password], input[type=email] {
 			padding-bottom: 20px;
 			/* padding-top: 20px; */
 			border: 1px solid #888;
-			width: 30%;
+			width: 40%;
 		}
 
 
@@ -118,7 +127,9 @@ input[type=text], input[type=password], input[type=email] {
 
 		/* Modal Body */
 		.modal-body{
+			padding-left: 20px;
 			padding-top: 20px;
+			text-align: left;
 
 		}
 
@@ -140,9 +151,12 @@ input[type=text], input[type=password], input[type=email] {
 		}
 /* ABOUT MODAL ENDS */
 
-/* #aboutModal{
+#aboutModal{
 	margin: auto;
-} */
+	padding: 0;
+	width: 100%;
+}
+
 
 
 
@@ -170,98 +184,87 @@ input[type=text], input[type=password], input[type=email] {
 }
 
 
-#game_config{
-	border-left: aliceblue 1px solid; 
-	padding-left: 2em;
+#m_m_config{
+
+	/* padding-left: 2em;  */
+	/* padding-right: 2em;  */
+	justify-content: center;
+	width: 40%;
 
 }
+
+#game_config{
+	height: 100% ;
+	/* padding-right: 2em; */
+	width: 30%;
+}
+
 
 #game_config h3,h5{
 	text-align: center;
 }
 
-
+/* BDEDE0 */
 header{
-	
-	position: fixed;
-	text-align: center;
+	margin:0;
 	top: 0;
-	width: 100%;
-	border: 1px solid red;
+    left: 0;
+    position: relative;
+    width: 100%;
+    height: 10%;
+    background-color: transparent;
+    overflow: hidden;
+    z-index: 0;
 }
-.headerContent{
-	background: transparent;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 0;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+#footerID{
+	margin:0;
+    left: 0;
+    position: relative;
+    width: 100%;
+    height: 10%;
+    background-color:transparent;
+    overflow: hidden;
+    z-index: 0;
 }
 
 #content{
-	
-	position: fixed;
-	padding: 0;
-	margin: 0;
-
-	top: 10%;
-	bottom: 10%;
-	left: 0;
-
-	width: 100%;
-	height: 80%;
-	background: #022831;
-	border: 5px solid black;
-	/* background: transparent; */
+	/* position: relative;
+    width: 100%;
+	min-height: 90vh; */
+	/* margin: auto; */
+	height: 80vh;
   }
 
-.mainPage{
-	height: 100%;
-	align-self: center;
-	align-content: center;
-	/* flex-direction: column; */
-	display: flex;
-	
+body{
+	/* background: #022831; */
+	background: #056176;
+	/* margin: 0; */
+	max-height: 100vh;
+	overflow: hidden;
+	font-family: 'Montserrat';
+	/* z-index: 2; */
 }
 
-footer{
-	position: fixed;
-	text-align: center;
-	bottom: 0;
-	width: 100%;
-	border: 1px solid red;
+/* .centerForm{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+} */
 
+.rowGrid{
+	display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   grid-template-rows: repeat(2, 80px);
 }
-.footerContent{
-	background: transparent;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 0;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-}
+
+
 #pacmanLogo{
-height: 30%; 
-width: 30%; 
-}
-
-
-.firstPage{
-
-    display: flex;
-    /* align-content: center; */
-    align-items: center;
-    justify-content: space-between;
-	/* flex-wrap: wrap; */
-	flex-direction: column;
-	border: 5px solid black;
-}
-
-#welcomePage{
-	width: 60%;
-	height: 80%;
-	margin: auto;	
-	background: #01171D;
+width: 40%; 
+margin-left: auto; 
+margin-right: auto;
 }
 
 [hidden] {
@@ -269,43 +272,30 @@ width: 30%;
 }
 
 .subPage{
-	display: flex;
-    align-items: center;
-    justify-content: center;
-	flex-direction: column;
+
+	height: 75%;
+	/* height: auto; */
+	width: 80%;
 	border: 5px solid black;
-	background: #01171D;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
 	/* background: #07849D; */
+	background: #0AB4D6;
+	/* background: #BDEDE0; */
 
-
-}
-
-#registerPage{
-	/* background: url(resources/images/registerBG.jpg) no-repeat !important; */
-	width: 60%;
-	height: 80%;
-	margin: auto;	
-
-}
-
-#registerPage h1{
 	margin: 0;
-}
-#registerPage h3{
-	margin: 5px;
+	position: absolute;
+	top: 50%;
+	left: 54%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+
+
 }
 
 
-
-
-#loginPage{
-	width: 60%;
-	height: 80%;
-	margin: auto;
-}
-.registerPage{
-	margin: auto;
-}
 
 .formDivs{
     display: flex; 
@@ -313,21 +303,34 @@ width: 30%;
     align-items: center;
   }
 
- 
-  #settingsPage{
+
+
+
+#buttomImgWelcomeP{
 	width: 60%;
-	height: 85%;
-	margin: auto;	
-	/* background: #01171D; */
+	margin: 2%;
 }
 
-#table{
-	text-align: center;
-	margin-left: auto; 
-	margin-right: auto; 
-	margin-top: auto; 
-	margin-bottom: auto;
+button{
+	margin: 10px;
+	background-color: blanchedalmond;
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
+button:hover{
+	background-color: #f8cb00;
+}
+
+.gameOptionBtn{
+	font-size: 20px;
+	align-self: center;
+	 width: 170px;
+	 margin-top: 10px;
+}
+
 
 .movemntKeys{ 
 	width:57px; 
@@ -338,49 +341,48 @@ width: 30%;
 #settingsBar{
 	display: flex;
 }
-.settingsBarCol{
-	margin-left: 18px;
-}
-
-.gamepageline{
-	display: flex;
-	align-items: center;
-	margin-top: 0px;
-}
-
-
-
-#gamePage{
-	display: flex;
-	width: 70%;
-	margin: auto;
-	background: #01171D;
-	/* padding: 20px 80px; */
-	padding-top: 20px;
-	padding-bottom: 20px;
-	justify-content: space-around;
-	border: 3px solid black;
-}
-
-
 
 
 #tbodyCSS td{
 	width: 80px;
 }
 
-#gameSettingsBar{
-	width: 25%; 
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-	align-self: center;
-	margin: auto;
+
+.heading{
+	margin-top: 5vh;
+
+}
+
+#registerForm{
+	padding-top: 7%;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.welcomeButton{
+	width: 40%;
+	height: auto;
+}
+
+#welcomePage button{
+	background: transparent;
+}
+
+#welcomePage button:hover{
+	background: transparent;
+	transform: translateY(-10px);
+    transition-duration: 1s;
 }
 
 #gameButtonsBar{
 	flex-direction: column;
 	text-align: center;
+	margin: auto;
+	align-self: center;
 	margin: auto;
 
 	
@@ -395,24 +397,140 @@ width: 30%;
 }
 
 .monsterButton{
+	height: 23% !important;
 	background: transparent;
 	border: none !important;
+	padding: 0;
 }
 
 .monsterButton:hover{
     transform: translateY(-10px);
     transition-duration: 1s;
 }
-
-
-.monsterButton img{
-	height: 100px !important;
+.monsterButton h3{
+	margin: 0;
 }
 
-.monsterRegBtn img{
-	height: 80px !important;
+
+
+
+
+
+
+
+#menuBar{
+	width: 7%;
+	float: left;
+	padding: 10px 0px 10px 50px ;
+	height: 100%;
+	overflow: hidden;
+	/* padding-left: 50px; */
+
 }
 
-.menu{
-	margin-right: 5%;
+#displayContent{
+	padding: 10px;
+	line-height: 2em;
+	height: 100%;
+	overflow: hidden;
+
+}
+
+#gamePage{
+	display: flex;
+	flex-direction: row;
+}
+
+.noBG_buttons button:hover{
+	background: transparent;
+}
+
+
+
+img{
+	width: 100%;
+	height: auto;
+}
+
+.settingsButtons{
+	width: 30%;
+	/* display: flex; */
+	flex-direction: column;
+	/* padding-left: 2em; */
+	justify-content: center;
+	height: 100%;
+	/* margin-left: 6%; */
+	
+}
+
+
+.settingsButtons button{
+	height: auto;
+	margin-top: 12%;
+	width: 70%;
+	/* margin-left: 10%; */
+}
+
+.settingsButtons img{
+	height: auto;
+	/* margin-top: 20%; */
+	width: 45%;
+}
+
+.settingsButtons button:hover{
+	background: transparent;
+}
+
+
+#foodNumInput{
+	width: 30%;
+}
+#gameTime{
+	width: 50%;
+}
+
+.ballColor{
+	display: flex; 
+	text-align: center; 
+	justify-content: center; 
+	align-items: center;
+}
+
+#game_config input{
+	margin-left: 1em;
+}
+
+.divider{
+	height: 75%;
+	width: 2px;
+	clear: both;
+	background: aliceblue; 
+	margin-bottom: 20px;
+	margin: 0px 30px;
+	/* border-right: aliceblue solid;  */
+
+}
+
+.ballCount{
+	display: flex;
+	align-items: center; 
+	color: white;
+	justify-content: center;
+}
+
+.colorsInGame{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.colorsInGame input{
+	margin-left: 10px;
+}
+
+#gamePage{
+	/* overflow:auto; */
+	height: auto;
+	padding-top: 10px;
 }

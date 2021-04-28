@@ -27,7 +27,7 @@ let gameOverSound = new Audio('./gameOverSound.wav');
 let winnerSound = new Audio('./winner.wav');
 
 let soundMuted = false;
-let playerName;
+let playerName = "nan";
 let movingDirection = "right";
 let monsters;
 let bonusObj;
@@ -48,6 +48,15 @@ var users = {
 let currentPage = "welcomePage";
 
 function changePage(newPage) {
+	if (newPage == "gamePage") {
+		document.getElementById("header").style.display = 'none';
+		document.getElementById("footerID").style.display = 'none';
+	}
+	else {
+		document.getElementById("header").style.display = 'flex';
+		document.getElementById("footerID").style.display = 'block';
+	}
+
 	muteSound();
 	$(`#${currentPage}`).hide();
 	document.getElementById(newPage).hidden = false;
@@ -85,12 +94,12 @@ $(function () {
 
 function playSound() {
 	soundMuted = false;
-	document.getElementById("soundBtn").innerHTML = "MUTE";
+	document.getElementById("soundBtnP").innerHTML = "MUTE";
 	audio.play();
 }
 function muteSound() {
 	audio.pause();
-	document.getElementById("soundBtn").innerHTML = "PLAY SOUND";
+	document.getElementById("soundBtnP").innerHTML = "PLAY SOUND";
 	soundMuted = true;
 }
 
@@ -116,6 +125,7 @@ function Start() {
 	score = 0;
 	foodCollected = 0;
 	livesLeft = 5;
+	$("#livesLeft").text(livesLeft);
 	pac_color = "yellow";
 	start_time = new Date();
 	while (food1_amount + food2_amount + food3_amount < foodNum) {
@@ -176,7 +186,7 @@ function Start() {
 		false
 	);
 	updatePacmanPositioInterval = setInterval(UpdatePacmanPosition, 100);
-	updateMonstersPositionInterval = setInterval(UpdateMonstersPosition, 300);
+	updateMonstersPositionInterval = setInterval(UpdateMonstersPosition, 500);
 	updateBonusPositionInterval = setInterval(updateBonusPosition, 500);
 
 	loadSettingDisplayData(); //for displaying the settings when game page is on
@@ -225,6 +235,54 @@ function loadSettingDisplayData() {
 	document.getElementById("inputColor3").value = food3_color;
 	$("#gameTimeSettingDisplay").text("Game Time: " + gameTime);
 	$("#monsterNumSettingDisplay").text("Monster Number: " + monsterNum);
+	$("#playerName").text("Player Name: " + playerName);
+
+	// Movement keys:
+	let upChar, downChar, leftChar, rightChar
+
+	if (document.getElementById("upKeyP").innerText == '38') {
+		upChar = "Up Arrow"
+	}
+	else {
+		upChar = String.fromCharCode(document.getElementById("upKeyP").innerText)
+	}
+
+	if (document.getElementById("downKeyP").innerText == '40') {
+		downChar = "Down Arrow"
+	}
+	else {
+		downChar = String.fromCharCode(document.getElementById("downKeyP").innerText)
+	}
+
+	if (document.getElementById("leftKeyP").innerText == '37') {
+		leftChar = "Left Arrow"
+	}
+	else {
+		leftChar = String.fromCharCode(document.getElementById("leftKeyP").innerText)
+	}
+
+	if (document.getElementById("rightKeyP").innerText == '39') {
+		rightChar = "Right Arrow"
+	}
+	else {
+		rightChar = String.fromCharCode(document.getElementById("rightKeyP").innerText)
+	}
+
+
+
+	// downChar = String.fromCharCode(document.getElementById("downKeyP").innerText)
+	// leftChar = String.fromCharCode(document.getElementById("leftKeyP").innerText)
+	// rightChar = String.fromCharCode(document.getElementById("rightKeyP").innerText)
+
+
+
+	$("#settingArrowUp").text(upChar);
+	$("#settingArrowDown").text(downChar);
+	$("#settingArrowLeft").text(leftChar);
+	$("#settingArrowRight").text(rightChar);
+
+
+
 }
 
 function findRandomEmptyCell(board) {
@@ -264,8 +322,9 @@ function DrawBonus() {
 function Draw() {
 	canvas.width = canvas.width; //clean board
 
-	$("#lblScore").text(score);
-	$("#lblTime").text(time_elapsed);
+	$("#lblScore").text("Score: " + score);
+	$("#lblTime").text("Time Elapsed: " + time_elapsed);
+	$("#livesLeft").text("Lives Left: " + livesLeft);
 	for (var i = 0; i < 11; i++) {
 		for (var j = 0; j < 11; j++) {
 			var center = new Object();
@@ -362,7 +421,6 @@ function Draw() {
 }
 
 function UpdatePacmanPosition() {
-	$("#livesLeft").text(livesLeft);
 	board[shape.i][shape.j] = 0;
 	var x = GetKeyPressed();
 	if (x == 1) {
@@ -427,47 +485,27 @@ function UpdatePacmanPosition() {
 
 		}
 	}
-	if (foodCollected == foodNum) {
-		if (!soundMuted) {
-			winnerSound.play();
-		}
-		window.clearInterval(updatePacmanPositioInterval);
-		window.clearInterval(updateMonstersPositionInterval);
-		window.clearInterval(updateBonusPositionInterval);
-		alert("Winner!!!");
-		changePage("welcomePage");
-	}
-	else if (time_elapsed >= gameTime) {
-		window.clearInterval(updatePacmanPositioInterval);
-		window.clearInterval(updateMonstersPositionInterval);
-		window.clearInterval(updateBonusPositionInterval);
-		if (score < 100) {
-			window.alert("You are better than " + score + " points!");
-		}
-		else {
-			alert("Winner!!!");
-		}
-		changePage("welcomePage");
-	}
-	else if (collisionCheck()) {
+
+	if (collisionCheck()) {
 		if (livesLeft <= 0) {
 			//game over
 			if (!soundMuted) {
 				gameOverSound.play();
 
 			}
-			alert("LOSER");
+			showGameMessage("LOSER", "No More Lives Left \nYou Can Try Again If You Think You Can Do It");
+			// alert("LOSER");
 			window.clearInterval(updateBonusPositionInterval);
 			window.clearInterval(updateMonstersPositionInterval);
 			window.clearInterval(updatePacmanPositioInterval);
-			changePage("welcomePage");
+			// changePage("welcomePage");
 		}
 		else {
-			if (!soundMuted) {
-				killSound.play();
+			// if (!soundMuted) {
+			// 	killSound.play();
 
-			}
-			window.alert("Monster caught you!");
+			// }
+			// window.alert("Monster caught you!");
 			// Start();
 			window.clearInterval(updateMonstersPositionInterval);
 			resetMonstersPosition();
@@ -476,6 +514,33 @@ function UpdatePacmanPosition() {
 			context.clearRect(shape.i, shape.j, 60, 60);
 			randomizePacmanLocation();
 		}
+	}
+	else if (foodCollected == foodNum) {
+		if (!soundMuted) {
+			winnerSound.play();
+		}
+		window.clearInterval(updatePacmanPositioInterval);
+		window.clearInterval(updateMonstersPositionInterval);
+		window.clearInterval(updateBonusPositionInterval);
+
+		showGameMessage("WINNER!!!", "Good Job! You Ate All The Food");
+
+		// alert("Winner!!!");
+		// changePage("welcomePage");
+	}
+	else if (time_elapsed >= gameTime) {
+		window.clearInterval(updatePacmanPositioInterval);
+		window.clearInterval(updateMonstersPositionInterval);
+		window.clearInterval(updateBonusPositionInterval);
+		if (score < 100) {
+			let message = "You are better than " + score + " points!";
+			showGameMessage("LOSER", message);
+		}
+		else {
+			showGameMessage("WINNER!!!", "Well Done! You Got More Then 100 Points")
+			// alert("Winner!!!");
+		}
+		// changePage("welcomePage");
 	}
 	else if (collisionWithBonusCheck()) {
 		window.clearInterval(updateBonusPositionInterval);
@@ -497,7 +562,7 @@ function randomizePacmanLocation() {
 	board[i1][i2] = 2;
 }
 function resetMonstersPosition() {
-	updateMonstersPositionInterval = setInterval(UpdateMonstersPosition, 700);
+	updateMonstersPositionInterval = setInterval(UpdateMonstersPosition, 500);
 	monsters[0].x = 0;
 	monsters[0].y = 0;
 	monsters[1].x = 600;
@@ -611,7 +676,7 @@ function collisionCheck() {
 		let shapeX_pxl = shape.i * 60;
 		let shapeY_pxl = shape.j * 60;
 		if (monster.x == shapeX_pxl && monster.y == shapeY_pxl) {
-
+			killSound.play();
 			keysDown = {}; //prevent sticky key after been caught
 			pac_color = "yellow"; //return pacman to regular color
 			if (monster.superMonster) {
@@ -620,6 +685,9 @@ function collisionCheck() {
 					score = 0;
 				}
 				livesLeft = livesLeft - 2;
+				if (livesLeft <= 0) {
+					livesLeft = 0;
+				}
 			}
 			else {
 				score = score - 10;
@@ -628,6 +696,7 @@ function collisionCheck() {
 				}
 				livesLeft = livesLeft - 1;
 			}
+			$("#livesLeft").text("Lives Left: " + livesLeft);
 			return true;
 		}
 	}
@@ -652,6 +721,12 @@ $(function () {
 
 $(function () {
 	$("#register").click(function (e) {
+		changePage("registerPage");
+	});
+});
+
+$(function () {
+	$("#registerBtn2").click(function (e) {
 		changePage("registerPage");
 	});
 });
@@ -716,7 +791,6 @@ function registerFieldValidation(username, password, fullname) {
 	// Full name check
 
 	if (!nameRegex.test(fullname)) {
-		// alert(nameRegex.test(fullname))
 		document.getElementById("fullname").style.borderColor = "red";
 		$("#fullname_error").text("Full name should contain only letters.");
 		valid = false;
@@ -748,8 +822,9 @@ $(function () {
 		changePage("loginPage");
 	});
 });
+
 $(function () { //for login btn at rgister page
-	$("#login1").click(function (e) {
+	$("#loginBtn2").click(function (e) {
 		changePage("loginPage");
 	});
 });
@@ -765,8 +840,11 @@ $(function () {
 			if (typedPassword === password) {
 				// Valid login
 				alert("logged in successfully \nWelcome " + users[typedUsername][1]);
+				playerName = users[typedUsername][1];
 				$("#playerName").text(typedUsername);
 				changePage('settingsPage');
+				document.getElementById("usernameLogin").value = "";
+				document.getElementById("passwordLogin").value = "";
 			}
 			else {
 				$("#login_error").text("Username or Password incorrect");
@@ -788,7 +866,7 @@ $(function () {
 
 // ***************  About ******************//
 
-function closeModal(modal){
+function closeModal(modal) {
 	// document.getElementById("about").hidden = false;
 	modal.style.display = "block";
 }
@@ -799,24 +877,12 @@ $(function () {//modal
 	// Get the button that opens the modal
 	var btn = document.getElementById("aboutBtn");
 
-	var btnS = document.getElementsByClassName("aboutBtnClass")
-
-	for(let i = 0; i < btnS.length; i++){
-		// console.log(btnS.length);
-		btnS[i].onclick = function () {
-			modal.style.display = "block";
-		}
-	}
-
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 	// When the user clicks the button, open the modal 
-	// btn.onclick = function () {
-	// 	modal.style.display = "block";
-	// }
-
-	// btn.onclick = closeModal(modal)
-	// btn1.onclick = closeModal(modal)
+	btn.onclick = function () {
+		modal.style.display = "block";
+	}
 
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function () {
@@ -830,13 +896,6 @@ $(function () {//modal
 		}
 	}
 
-
-
-
-
-
-
-
 	// When the user clicks esc, close it
 	window.addEventListener('keydown', function (event) {
 		if (event.key === 'Escape') {
@@ -846,9 +905,9 @@ $(function () {//modal
 });
 
 // Help function to close modal when clicking on the footer area
-function closeModalFooterClick(){
+function closeModalFooterClick() {
 	let modal = document.getElementById("aboutModal");
-	if(modal.style.display != 'none'){
+	if (modal.style.display != 'none') {
 		modal.style.display = 'none';
 	}
 }
@@ -856,12 +915,17 @@ function closeModalFooterClick(){
 
 
 // ************   SETINGS *********************************:
-// $(function () {
-// 	$("#settings").click(function (e) {
-// 		e.preventDefault();
-// 		changePage("settingsPage");
-// 	})
-// });
+$(function () {
+	$("#settings").click(function (e) {
+		e.preventDefault();
+		if (playerName != "nan") {
+			changePage("settingsPage");
+		}
+		else {
+			alert("Sorry You Must Log In First!");
+		}
+	})
+});
 
 
 function updateFoodNum() {
@@ -918,17 +982,6 @@ function randomizeSettings() {
 	document.getElementById("food_type_2_color").value = "#" + randomColor2;
 	document.getElementById("food_type_3_color").value = "#" + randomColor3;
 
-	// Need work on color random pick
-
-	// document.getElementById("food_type_1_color").value = randomColor;
-	// randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-	// index = possibleColors.indexOf(randomColor);
-	// possibleColors.splice(index, 1);
-	// document.getElementById("food_type_2_color").value = randomColor;
-	// randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
-	// index = possibleColors.indexOf(randomColor);
-	// possibleColors.splice(index, 1);
-	// document.getElementById("food_type_3_color").value = randomColor;
 	//game time :
 	document.getElementById("gameTime").value = Math.floor(Math.random() * 500) + 60;
 	//monsters:
@@ -952,20 +1005,6 @@ $(function () {
 	})
 });
 
-// $(function () {
-// 	$("#monsterNum").change(function (e) {
-// 		e.preventDefault();
-// 		const monsterNum = document.getElementById("monsterNum").value;
-// 		if (!(monsterNum >= 1 && monsterNum <= 4)) {
-// 			$("#monsterNum_error").text("Monster number should be between 1 to 4");
-// 			document.getElementById("monsterNum").value = "";
-// 		}
-// 		else {
-// 			$("#monsterNum_error").text("");
-
-// 		}
-// 	})
-// });
 
 $(function () {
 	$("#settingsForm").submit(function (e) {
@@ -979,16 +1018,11 @@ $(function () {
 		food2_color = document.getElementById("food_type_2_color").value;
 		food3_color = document.getElementById("food_type_3_color").value;
 		gameTime = document.getElementById("gameTime").value;
-		alert("Monster num: " + document.getElementById("monsterNum").innerHTML)
 		monsterNum = document.getElementById("monsterNum").innerHTML;
 		// e.preventDefault();
 
 		let validColors = checkColors(food1_color, food2_color, food3_color);
-		alert("Valid colors: " + validColors);
-		alert("moveUp value: " + moveUp + "move down value: " + moveDown + "move right: " + moveRight + "move left: " + moveLeft)
 		let validArrows = checkArrows(moveUp, moveDown, moveLeft, moveRight);
-		alert("Valid arrows: " + validArrows);
-
 		if (validColors && validArrows) {
 			changePage("gamePage");
 			Start();
@@ -1022,6 +1056,75 @@ function checkArrows(arrow1, arrow2, arrow3, arrow4) {
 
 // ********************* SETINGS END ************************************
 
+
+// ********************* GAME STARTS ************************************
+
+
+function showGameMessage(mainMessage, subMessage) {
+
+	audio.pause();
+	audio.currentTime = 0;
+	document.getElementById("mainMessage").innerHTML = mainMessage;
+	document.getElementById("subMessage").innerHTML = subMessage;
+
+	document.getElementById("messageBox").style.display = 'flex';
+	$("#canvas").hide();
+
+}
+
+$(function () {
+	$("#playAgain").click(function (e) {
+
+		e.preventDefault();
+		$("#canvas").show();
+		document.getElementById("messageBox").style.display = 'none';
+		changePage("settingsPage");
+	})
+});
+
+$(function () {
+	$("#quit").click(function (e) {
+		e.preventDefault();
+		playerName = "nan";
+		changePage("welcomePage");
+		$("#canvas").show();
+		document.getElementById("messageBox").style.display = 'none';
+	})
+});
+
+
+
+
+
+
+
+
+// function closeModal(modal) {
+// 	// document.getElementById("about").hidden = false;
+// 	modal.style.display = "block";
+// }
+
+
+// Help function to close modal when clicking on the footer area
+// function closeModalFooterClick() {
+// 	let modal = document.getElementById("aboutModal");
+// 	if (modal.style.display != 'none') {
+// 		modal.style.display = 'none';
+// 	}
+// }
+
+
+
+
+
+// ********************* SETINGS END ************************************
+
+
+
+
+
+
+
 // pattern - please dont fill or delete
 // $(function () { 
 // 	$("#testtest").change(function (e) {
@@ -1032,12 +1135,12 @@ function checkArrows(arrow1, arrow2, arrow3, arrow4) {
 
 
 
-// $(function () {
-// 	$("#fastGame").click(function (e) {
-// 		changePage("gamePage");
-// 		Start();
-// 	});
-// });
+$(function () {
+	$("#fastGame").click(function (e) {
+		changePage("gamePage");
+		Start();
+	});
+});
 
 
 
