@@ -676,7 +676,9 @@ function collisionCheck() {
 		let shapeX_pxl = shape.i * 60;
 		let shapeY_pxl = shape.j * 60;
 		if (monster.x == shapeX_pxl && monster.y == shapeY_pxl) {
-			killSound.play();
+			if (!soundMuted) {
+				killSound.play();
+			}
 			keysDown = {}; //prevent sticky key after been caught
 			pac_color = "yellow"; //return pacman to regular color
 			if (monster.superMonster) {
