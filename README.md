@@ -1,5 +1,5 @@
 # Assignment2
-Web Site Address: https://web-development-environments-2021.github.io/Assignment2_312204811_311327084/
+Web Site Address: https://dorshireto.github.io/Pacman-Web-Game/
 Student 1: Lior Savchenko - 311327084
 Student 2: Dor Shireto - 312204811
 
