@@ -11,3 +11,10 @@ Special Bonuses:
 							3. Stronger Type Monster: if you get caught by the pink monster, you'd lose 2 life points and 20 points.
 							   The pink monster will appear only if you chose to have more than 1 monster in your game.
  
+
+
+![image](https://user-images.githubusercontent.com/45013022/135907901-b13ddadf-8cbf-409e-800c-44e62423691e.png)
+
+![image](https://user-images.githubusercontent.com/45013022/135908091-f56afa57-b2da-481f-8daf-597fe979edce.png)
+
+![image](https://user-images.githubusercontent.com/45013022/135908226-dee30864-b837-4f63-8fd9-f271b47c41cb.png)
